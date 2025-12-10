@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOLLIBEE</title>
+<link rel="stylesheet" href="INDEX.css">
+</head>
+<body>
+
+<aside id="expanded-menu" class="off-canvas-menu">
+  <button class="close-btn" onclick="toggleExpandedMenu()">&times;</button>
+  <h3 class="menu-title">Jollibee Navigation</h3>
+  <nav class="main-nav-links">
+    <a href="#Home" class="nav-link" onclick="toggleExpandedMenu()">Home</a>
+    <a href="#Menu" class="nav-link" onclick="toggleExpandedMenu()">Menu</a>
+    <a href="#About" class="nav-link" onclick="toggleExpandedMenu()">About</a>
+    <a href="#Blog" class="nav-link" onclick="toggleExpandedMenu()">Blog</a>
+    
+    <hr>
+    <a href="#" class="nav-link setting-link" onclick="openSetting('account')">Account Settings</a>
+    <a href="#" class="nav-link setting-link" onclick="openSetting('orders')">Order History</a>
+    <a href="#" class="nav-link setting-link" onclick="openSetting('notifications')">Notifications</a>
+    <a href="#" class="nav-link setting-link" onclick="openSetting('help')">Help & Support</a>
+  </nav>
+
+  <div class="menu-footer">
+    <button class="btn-popup" onclick="openAuthModal('login')">Login</button>
+    <button class="btn-popup signup" onclick="openAuthModal('signup')">Sign Up</button>
+  </div>
+</aside>
+
+<header class="main-header">
+  <div class="header-inner">
+    <button class="menu-toggle-btn" onclick="toggleExpandedMenu()">&#9776; Menu</button>
+    
+    <h1 class="logo">JOLLIBEE</h1>
+    
+    <div class="header-actions">
+      <button id="dark-toggle" class="dark-toggle-btn">
+        <span class="light-icon">☀️</span>
+        <span class="dark-icon">🌙</span>
+      </button>
+      <button class="cart-toggle-btn" onclick="toggleCartSidebar()">
+        Cart (<span id="cart-item-count">0</span>) 🛒
+      </button>
+    </div>
+  </div>
+</header>
+
+<aside id="cart-sidebar" class="off-canvas-cart">
+  <button class="close-btn" onclick="toggleCartSidebar()">&times;</button>
+  <h3>Your Order</h3>
+  <ul id="cart"></ul>
+  <p id="cart-total" class="cart-total-footer">Total: ₱0 pesos</p>
+  <button id="submit-order" class="submit-order-btn">Submit Order</button>
+</aside>
+
+<main id="main-content-wrapper">
+  
+  <section id="Home" class="full-screen home-section">
+    <div class="home-left">
+      <h1>Welcome to <span>JOLLIBEE</span></h1>
+      <p>Delicious fast food delivered fast, fresh, and fun!</p>
+      <button onclick="scrollToMenu()">Order Now</button>
+    </div>
+    <div class="home-right">
+      <div class="slider-container" id="hero-slider">
+        </div>
+    </div>
+  </section>
+
+  <section id="Menu" class="menu-page">
+    <h2>Our Menu</h2>
+    
+    <div class="menu-content-grid">
+      <div class="menu-sidebar">
+        <input type="text" id="search-bar" placeholder="Search food..." oninput="filterMenu()">
+        <div id="category-buttons">
+          </div>
+      </div>
+      
+      <div class="menu-items-grid" id="menu-grid">
+        </div>
+    </div>
+  </section>
+
+  <section id="About" class="full-screen about-section">
+    <div class="about-text">
+      <h2>About JOLLIBEE</h2>
+      <p>We serve the best fast-food experience combining taste, speed, and fun!</p>
+      <p>Langhap sarap! Lami na mas pinalami pa!</p>
+    </div>
+    <div class="about-frames">
+      <img src="image/download.jpg" alt="About frame 1">
+      <img src="image/chicken.jpg" alt="About frame 2">
+      <img src="image/summerfloats.png" alt="About frame 3">
+    </div>
+  </section>
+
+  <section id="Blog" class="blog-section">
+    <div class="blog-container">
+      <h2>The Jollibee Blog</h2>
+      
+      <article class="blog-post">
+        <h3>More Than Just Fried Chicken: Why Jollibee Owns My Heart</h3>
+        <p class="blog-date">December 10, 2025 | By FoodieFan</p>
+        
+        <p>If you grew up Filipino, the sight of a giant, red, smiling bee doesn't just signal fast food. It signals <strong>home</strong>. But even if you didn’t grow up with it, Jollibee has likely captivated you with a specific kind of magic that defies standard culinary logic.</p>
+
+        <h4>The Chickenjoy: A Religious Experience</h4>
+        <p>There is a specific science to Jollibee’s fried chicken. It isn't just about the breading; it’s about the <strong>marinade</strong>. The chicken is juicy down to the bone, with a savory, slightly peppery kick.</p>
+        <blockquote>
+          <strong>The Secret Weapon:</strong> It’s the gravy. You don't just dip the chicken; you bathe it. That thick, brown, ethereal substance is the glue that holds the meal together.
+        </blockquote>
+
+        <h4>The Spaghetti Debate</h4>
+        <p>Jolly Spaghetti is polarizing, but only until you understand what it’s trying to be. It isn't Italian. It is unapologetically <strong>Filipino</strong>.</p>
+        <ul>
+          <li><strong>The Sauce:</strong> Sweet, derived from banana ketchup, and loaded with meat.</li>
+          <li><strong>The Toppings:</strong> Sliced red hotdogs and a generous grating of cheddar cheese.</li>
+        </ul>
+
+        <h4>The "Perfect Order" Cheat Sheet</h4>
+        <p>If you are visiting for the first time, here is the curated "God Tier" combo:</p>
+
+        <table class="blog-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>2-Piece Chickenjoy (Spicy)</strong></td>
+              <td>Ask for the thigh part for maximum juiciness.</td>
+            </tr>
+            <tr>
+              <td><strong>Jolly Spaghetti (Side)</strong></td>
+              <td>The perfect sweet counterpoint to the spice.</td>
+            </tr>
+            <tr>
+              <td><strong>Peach Mango Pie</strong></td>
+              <td>Eat this while it's still dangerously hot.</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <p class="blog-outro">What’s your go-to Jollibee order? Are you Team Spicy or Team Original?</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<div id="auth-modal" class="modal">
+  <div class="modal-content auth-content">
+    <span class="close-btn" onclick="closeAuthModal()">&times;</span>
+    <div class="auth-tabs">
+      <button id="login-tab" class="active" onclick="switchAuthTab('login')">Login</button>
+      <button id="signup-tab" onclick="switchAuthTab('signup')">Sign Up</button>
+    </div>
+    <form id="login-form" onsubmit="loginUser(event)">
+      <input type="text" id="login-username" placeholder="Username" required>
+      <input type="password" id="login-password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <form id="signup-form" onsubmit="signupUser(event)" style="display:none;">
+      <input type="text" id="signup-username" placeholder="Username" required>
+      <input type="email" id="signup-email" placeholder="Email" required>
+      <input type="password" id="signup-password" placeholder="Password" required>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+</div>
+
+<div id="overlay" onclick="closeAllOffCanvas()"></div>
+
+<script src="INDEX.js"></script>
+</body>
+</html>
