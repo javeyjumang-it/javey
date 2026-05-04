@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Stays - Hotel Management Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <span class="logo-text">Luxury Stays</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="nav-menu">
+                <div class="nav-section">
+                    <span class="nav-label">Main</span>
+                    <a href="#" class="nav-item active" data-section="dashboard">
+                        <div class="nav-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <span>Dashboard</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#" class="nav-item" data-section="reservations">
+                        <div class="nav-icon"><i class="fas fa-calendar-check"></i></div>
+                        <span>Reservations</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#" class="nav-item" data-section="rooms">
+                        <div class="nav-icon"><i class="fas fa-bed"></i></div>
+                        <span>Rooms</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#" class="nav-item" data-section="guests">
+                        <div class="nav-icon"><i class="fas fa-users"></i></div>
+                        <span>Guests</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#" class="nav-item" data-section="staff">
+                        <div class="nav-icon"><i class="fas fa-user-tie"></i></div>
+                        <span>Staff</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <span class="nav-label">Finance & Reports</span>
+                    <a href="#" class="nav-item" data-section="billing">
+                        <div class="nav-icon"><i class="fas fa-receipt"></i></div>
+                        <span>Billing</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#" class="nav-item" data-section="reports">
+                        <div class="nav-icon"><i class="fas fa-chart-bar"></i></div>
+                        <span>Reports</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#" class="nav-item" data-section="settings">
+                        <div class="nav-icon"><i class="fas fa-cog"></i></div>
+                        <span>Settings</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Manager" alt="Manager" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Sarah Thompson</span>
+                        <span class="user-role">General Manager</span>
+                    </div>
+                    <button class="user-menu-btn">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="page-info">
+                        <h1 class="page-title" id="pageTitle">Dashboard</h1>
+                        <p class="page-subtitle" id="pageSubtitle">Welcome back! Here's what's happening today</p>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search guests, rooms, reservations..." class="search-input">
+                    </div>
+                    
+                    <div class="notification-container">
+                        <button class="header-btn notification-btn" onclick="toggleNotificationDropdown()">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                        <div class="notification-dropdown" id="notification-dropdown">
+                            <div class="notification-header">
+                                <h4>Notifications</h4>
+                                <button class="mark-read">Mark all read</button>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon"><i class="fas fa-calendar-check"></i></div>
+                                <div class="notification-content">
+                                    <p>New reservation #RX567 for Suite 301</p>
+                                    <small>5 min ago</small>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon"><i class="fas fa-bed"></i></div>
+                                <div class="notification-content">
+                                    <p>Room 205 checkout completed</p>
+                                    <small>12 min ago</small>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-icon"><i class="fas fa-dollar-sign"></i></div>
+                                <div class="notification-content">
+                                    <p>Daily revenue target reached</p>
+                                    <small>1 hour ago</small>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-icon"><i class="fas fa-user-check"></i></div>
+                                <div class="notification-content">
+                                    <p>Guest John Smith checked in</p>
+                                    <small>2 hours ago</small>
+                                </div>
+                            </div>
+                            <a href="#" class="view-all-notifications">View All</a>
+                        </div>
+                    </div>
+                    
+                    <button class="header-btn" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    
+                    <div class="quick-actions">
+                        <button class="action-btn primary" onclick="openNewReservationModal()">
+                            <i class="fas fa-plus"></i> New Booking
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-wrapper" id="dashboardSection">
+                <!-- KPI Cards - Hotel Metrics -->
+                <section class="kpi-section">
+                    <div class="kpi-cards">
+                        <div class="kpi-card" data-aos="fade-up" data-aos-delay="0">
+                            <div class="kpi-header">
+                                <div class="kpi-icon-wrap navy">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="kpi-trend up">
+                                    <i class="fas fa-arrow-up"></i> <span>8.2%</span>
+                                </div>
+                            </div>
+                            <div class="kpi-body">
+                                <span class="kpi-label">Total Bookings</span>
+                                <h2 class="kpi-value" data-target="567">0</h2>
+                            </div>
+                            <div class="kpi-footer">
+                                <span>vs last week</span>
+                            </div>
+                            <div class="kpi-sparkline">
+                                <svg viewBox="0 0 100 30"><polyline fill="none" stroke="rgba(30,58,138,0.4)" stroke-width="2" points="0,22 20,18 40,15 60,12 80,8 100,5"/></svg>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="kpi-header">
+                                <div class="kpi-icon-wrap gold">
+                                    <i class="fas fa-bed"></i>
+                                </div>
+                                <div class="kpi-trend down">
+                                    <i class="fas fa-arrow-down"></i> <span>2.1%</span>
+                                </div>
+                            </div>
+                            <div class="kpi-body">
+                                <span class="kpi-label">Available Rooms</span>
+                                <h2 class="kpi-value" data-target="45">0</h2>
+                                <span class="kpi-total">of 120</span>
+                            </div>
+                            <div class="kpi-footer">
+                                <span>current</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="kpi-header">
+                                <div class="kpi-icon-wrap green">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="kpi-trend up">
+                                    <i class="fas fa-arrow-up"></i> <span>12.5%</span>
+                                </div>
+                            </div>
+                            <div class="kpi-body">
+                                <span class="kpi-label">Occupancy Rate</span>
+                                <h2 class="kpi-value" data-target="78" data-suffix="%">0</h2>
+                            </div>
+                            <div class="kpi-footer">
+                                <span>today</span>
+                            </div>
+                            <div class="kpi-sparkline">
+                                <svg viewBox="0 0 100 30"><polyline fill="none" stroke="rgba(34,197,94,0.4)" stroke-width="2" points="0,25 25,20 50,15 75,12 100,10"/></svg>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" data-aos="fade-up" data-aos-delay="300">
+                            <div class="kpi-header">
+                                <div class="kpi-icon-wrap gold">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                                <div class="kpi-trend up">
+                                    <i class="fas fa-arrow-up"></i> <span>15.3%</span>
+                                </div>
+                            </div>
+                            <div class="kpi-body">
+                                <span class="kpi-label">Revenue Today</span>
+                                <h2 class="kpi-value" data-target="24500" data-prefix="$">0</h2>
+                            </div>
+                            <div class="kpi-footer">
+                                <span>vs yesterday</span>
+                            </div>
+                            <div class="kpi-sparkline">
+                                <svg viewBox="0 0 100 30"><polyline fill="none" stroke="rgba(212,175,55,0.4)" stroke-width="2" points="0,20 30,16 60,12 90,8 100,6"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Charts Row -->
+                <section class="charts-row">
+                    <div class="chart-card large" data-aos="fade-up" data-aos-delay="400">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <h3>Occupancy & Revenue Trends</h3>
+                                <p>Last 7 days performance</p>
+                            </div>
+                            <div class="card-actions">
+                                <div class="time-filter">
+                                    <button class="filter-btn active" data-range="week">Week</button>
+                                    <button class="filter-btn" data-range="month">Month</button>
+                                    <button class="filter-btn" data-range="year">Year</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="mainChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <h3>Room Status</h3>
+                                <p>Current distribution (120 total)</p>
+                            </div>
+                        </div>
+                        <div class="card-body room-status-body">
+                            <div class="status-item">
+                                <div class="status-header">
+                                    <span class="status-title">Available</span>
+                                    <span class="status-count green">45</span>
+                                </div>
+                                <div class="status-bar">
+                                    <div class="status-fill available" data-width="37.5"></div>
+                                </div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-header">
+                                    <span class="status-title">Occupied</span>
+                                    <span class="status-count red">65</span>
+                                </div>
+                                <div class="status-bar">
+                                    <div class="status-fill occupied" data-width="54"></div>
+                                </div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-header">
+                                    <span class="status-title">Cleaning</span>
+                                    <span class="status-count orange">6</span>
+                                </div>
+                                <div class="status-bar">
+                                    <div class="status-fill cleaning" data-width="5"></div>
+                                </div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-header">
+                                    <span class="status-title">Maintenance</span>
+                                    <span class="status-count blue">4</span>
+                                </div>
+                                <div class="status-bar">
+                                    <div class="status-fill maintenance" data-width="3.3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bottom Row -->
+                <section class="bottom-row">
+                    <div class="activity-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <h3>Recent Reservations</h3>
+                                <p>Last 24 hours</p>
+                            </div>
+                            <button class="view-all-btn">View All</button>
+                        </div>
+                        <div class="reservations-list">
+                            <div class="reservation-item">
+                                <div class="reservation-icon confirmed">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="reservation-details">
+                                    <div class="reservation-header">
+                                        <span class="guest-name">John Smith</span>
+                                        <span class="room-number">Suite 301</span>
+                                    </div>
+                                    <div class="reservation-meta">
+                                        <span>Check-in: Today 14:00</span>
+                                        <span>Check-out: Tomorrow 11:00</span>
+                                        <span>2 nights • $450</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reservation-item">
+                                <div class="reservation-icon pending">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="reservation-details">
+                                    <div class="reservation-header">
+                                        <span class="guest-name">Maria Garcia</span>
+                                        <span class="room-number">Deluxe 215</span>
+                                    </div>
+                                    <div class="reservation-meta">
+                                        <span>Check-in: Tomorrow 15:00</span>
+                                        <span>Check-out: Fri 12:00</span>
+                                        <span>3 nights • $720</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reservation-item">
+                                <div class="reservation-icon checked-in">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                </div>
+                                <div class="reservation-details">
+                                    <div class="reservation-header">
+                                        <span class="guest-name">David Wilson</span>
+                                        <span class="room-number">Standard 108</span>
+                                    </div>
+                                    <div class="reservation-meta">
+                                        <span>Checked in: Today 10:30</span>
+                                        <span>Check-out: Tomorrow 09:00</span>
+                                        <span>1 night • $180</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reservation-item">
+                                <div class="reservation-icon cancelled">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <div class="reservation-details">
+                                    <div class="reservation-header">
+                                        <span class="guest-name">Lisa Chen</span>
+                                        <span class="room-number">Executive 450</span>
+                                    </div>
+                                    <div class="reservation-meta">
+                                        <span>Cancelled</span>
+                                        <span>was: Today 16:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="room-status-grid" data-aos="fade-up" data-aos-delay="700">
+                        <div class="room-status-card available">
+                            <div class="status-icon">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <div class="status-info">
+                                <span class="status-number">45</span>
+                                <span class="status-label">Available</span>
+                            </div>
+                        </div>
+                        <div class="room-status-card occupied">
+                            <div class="status-icon">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <div class="status-info">
+                                <span class="status-number">65</span>
+                                <span class="status-label">Occupied</span>
+                            </div>
+                        </div>
+                        <div class="room-status-card cleaning">
+                            <div class="status-icon">
+                                <i class="fas fa-broom"></i>
+                            </div>
+                            <div class="status-info">
+                                <span class="status-number">6</span>
+                                <span class="status-label">Cleaning</span>
+                            </div>
+                        </div>
+                        <div class="room-status-card maintenance">
+                            <div class="status-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="status-info">
+                                <span class="status-number">4</span>
+                                <span class="status-label">Maintenance</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="revenue-card" data-aos="fade-up" data-aos-delay="800">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <h3>Revenue Breakdown</h3>
+                                <p>Today vs yesterday</p>
+                            </div>
+                        </div>
+                        <div class="revenue-canvas">
+                            <canvas id="revenueChart" width="300" height="200"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Actions -->
+                <section class="quick-actions-section" data-aos="fade-up" data-aos-delay="900">
+                    <h3>Quick Actions</h3>
+                    <div class="actions-grid">
+                        <button class="action-card" onclick="openNewReservationModal()">
+                            <i class="fas fa-calendar-plus"></i>
+                            <span>New Reservation</span>
+                        </button>
+                        <button class="action-card" onclick="checkInGuest()">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Check-in Guest</span>
+                        </button>
+                        <button class="action-card" onclick="checkOutGuest()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Check-out Guest</span>
+                        </button>
+                        <button class="action-card" onclick="viewHousekeeping()">
+                            <i class="fas fa-broom"></i>
+                            <span>Housekeeping</span>
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+
+<div class="content-wrapper hidden" id="reservationsSection">
+                <!-- Reservations Management -->
+                <div class="section-header">
+                    <div>
+                        <h2>Reservations</h2>
+                        <p>Manage all upcoming bookings (124 active)</p>
+                    </div>
+                    <div class="section-actions">
+                        <button class="action-btn primary" onclick="openNewReservationModal()">
+                            <i class="fas fa-plus"></i> New Reservation
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="filters-row">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="reservationsSearch" placeholder="Search by guest name, confirmation #" class="search-input">
+                    </div>
+                    <select class="form-input" style="width: 180px;">
+                        <option>All Status</option>
+                        <option>Confirmed</option>
+                        <option>Checked In</option>
+                        <option>Checked Out</option>
+                        <option>Cancelled</option>
+                    </select>
+                    <select class="form-input" style="width: 140px;">
+                        <option>All Dates</option>
+                        <option>Today</option>
+                        <option>This Week</option>
+                        <option>This Month</option>
+                    </select>
+                </div>
+                
+                <!-- Reservations Table -->
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Confirmation #</th>
+                                <th>Guest</th>
+                                <th>Room</th>
+                                <th>Check-in / Check-out</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>RX001</td>
+                                <td>John Smith</td>
+                                <td>Suite 301</td>
+                                <td>Today 14:00<br>Tomorrow 11:00</td>
+                                <td><span class="status-badge confirmed">Confirmed</span></td>
+                                <td>$450</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                    <button class="table-btn warning"><i class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RX002</td>
+                                <td>Maria Garcia</td>
+                                <td>Deluxe 215</td>
+                                <td>Tomorrow 15:00<br>Fri 12:00</td>
+                                <td><span class="status-badge checked-in">Checked In</span></td>
+                                <td>$720</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                    <button class="table-btn warning"><i class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RX003</td>
+                                <td>David Wilson</td>
+                                <td>Standard 108</td>
+                                <td>Today 10:30<br>Tomorrow 09:00</td>
+                                <td><span class="status-badge pending">Pending Payment</span></td>
+                                <td>$180</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                    <button class="table-btn danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RX004</td>
+                                <td>Lisa Chen</td>
+                                <td>Executive 450</td>
+                                <td>Cancelled</td>
+                                <td><span class="status-badge cancelled">Cancelled</span></td>
+                                <td>$0</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RX005</td>
+                                <td>Robert Johnson</td>
+                                <td>Junior Suite 205</td>
+                                <td>Next Mon 16:00<br>Next Fri 12:00</td>
+                                <td><span class="status-badge confirmed">Confirmed</span></td>
+                                <td>$1,250</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                    <button class="table-btn warning"><i class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RX006</td>
+                                <td>Emily Davis</td>
+                                <td>Deluxe King 312</td>
+                                <td>Today 18:00<br>Wed 11:00</td>
+                                <td><span class="status-badge pending">Arriving Soon</span></td>
+                                <td>$380</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RX007</td>
+                                <td>Michael Brown</td>
+                                <td>Standard Queen 142</td>
+                                <td>Checked Out Today</td>
+                                <td><span class="status-badge checked-out">Checked Out</span></td>
+                                <td>$240</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RX008</td>
+                                <td>Sophia Lee</td>
+                                <td>Presidential 501</td>
+                                <td>Fri 14:00<br>Next Tue 12:00</td>
+                                <td><span class="status-badge confirmed">VIP Confirmed</span></td>
+                                <td>$3,200</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                    <button class="table-btn warning"><i class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RX009</td>
+                                <td>James Taylor</td>
+                                <td>Suite 220</td>
+                                <td>Tomorrow 12:00<br>Thu 10:00</td>
+                                <td><span class="status-badge pending">Payment Due</span></td>
+                                <td>$650</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                    <button class="table-btn warning"><i class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RX010</td>
+                                <td>Amanda White</td>
+                                <td>Deluxe 167</td>
+                                <td>Next Week / 4 nights</td>
+                                <td><span class="status-badge confirmed">Confirmed</span></td>
+                                <td>$980</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Table Footer -->
+                <div class="table-footer">
+                    <span>Showing 10 of 124 reservations</span>
+                    <div class="pagination">
+                        <button><i class="fas fa-chevron-left"></i></button>
+                        <span>1 of 13</span>
+                        <button><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+<div class="content-wrapper hidden" id="roomsSection">
+                <!-- Rooms Management -->
+                <div class="section-header">
+                    <div>
+                        <h2>Rooms</h2>
+                        <p>120 total rooms | 45 available | 75 occupied</p>
+                    </div>
+                    <div class="section-actions">
+                        <div class="status-tabs">
+                            <button class="tab-btn active" data-status="all"><i class="fas fa-th"></i> All</button>
+                            <button class="tab-btn" data-status="available"><i class="fas fa-bed"></i> Available (45)</button>
+                            <button class="tab-btn" data-status="occupied"><i class="fas fa-user-friends"></i> Occupied (65)</button>
+                            <button class="tab-btn" data-status="cleaning"><i class="fas fa-broom"></i> Cleaning (6)</button>
+                            <button class="tab-btn" data-status="maintenance"><i class="fas fa-tools"></i> Maintenance (4)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rooms Grid -->
+                <div class="rooms-grid" id="roomsGrid">
+                    <div class="room-card available" data-status="available">
+                        <div class="room-header">
+                            <span class="room-number">#101</span>
+                            <span class="room-type">Standard Single</span>
+                        </div>
+                        <div class="room-image-placeholder">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div class="room-status">
+                            <span class="status-badge available">Ready</span>
+                        </div>
+                        <div class="room-details">
+                            <div class="room-price">$180 / night</div>
+                            <div class="room-actions">
+                                <button class="action-btn small primary">Assign</button>
+                                <button class="action-btn small secondary"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-card occupied" data-status="occupied">
+                        <div class="room-header">
+                            <span class="room-number">#205</span>
+                            <span class="room-type">Deluxe Double</span>
+                        </div>
+                        <div class="room-image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="room-status">
+                            <span class="status-badge occupied">Occupied</span>
+                            <span>John Smith</span>
+                        </div>
+                        <div class="room-details">
+                            <div class="room-price">$320 / night</div>
+                            <div class="room-actions">
+                                <button class="action-btn small warning">Extend</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-card cleaning" data-status="cleaning">
+                        <div class="room-header">
+                            <span class="room-number">#312</span>
+                            <span class="room-type">Executive Suite</span>
+                        </div>
+                        <div class="room-image-placeholder">
+                            <i class="fas fa-broom"></i>
+                        </div>
+                        <div class="room-status">
+                            <span class="status-badge cleaning">Cleaning</span>
+                            <span>ETA: 30min</span>
+                        </div>
+                        <div class="room-details">
+                            <div class="room-price">$650 / night</div>
+                            <div class="room-actions">
+                                <button class="action-btn small orange">Complete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-card maintenance" data-status="maintenance">
+                        <div class="room-header">
+                            <span class="room-number">#450</span>
+                            <span class="room-type">Presidential</span>
+                        </div>
+                        <div class="room-image-placeholder">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="room-status">
+                            <span class="status-badge maintenance">Maintenance</span>
+                        </div>
+                        <div class="room-details">
+                            <div class="room-price">$1,800 / night</div>
+                            <div class="room-actions">
+                                <button class="action-btn small danger">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-card available" data-status="available">
+                        <div class="room-header">
+                            <span class="room-number">#167</span>
+                            <span class="room-type">Deluxe King</span>
+                        </div>
+                        <div class="room-image-placeholder">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div class="room-status">
+                            <span class="status-badge available">Ready</span>
+                        </div>
+                        <div class="room-details">
+                            <div class="room-price">$380 / night</div>
+                            <div class="room-actions">
+                                <button class="action-btn small primary">Assign</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-card occupied" data-status="occupied">
+                        <div class="room-header">
+                            <span class="room-number">#220</span>
+                            <span class="room-type">Junior Suite</span>
+                        </div>
+                        <div class="room-image-placeholder">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div class="room-status">
+                            <span class="status-badge occupied">Occupied</span>
+                            <span>Maria Garcia</span>
+                        </div>
+                        <div class="room-details">
+                            <div class="room-price">$520 / night</div>
+                            <div class="room-actions">
+                                <button class="action-btn small secondary">View</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-card available" data-status="available">
+                        <div class="room-header">
+                            <span class="room-number">#108</span>
+                            <span class="room-type">Standard Queen</span>
+                        </div>
+                        <div class="room-image-placeholder">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div class="room-status">
+                            <span class="status-badge available">Ready</span>
+                        </div>
+                        <div class="room-details">
+                            <div class="room-price">$210 / night</div>
+                            <div class="room-actions">
+                                <button class="action-btn small primary">Assign</button>
+                                <button class="action-btn small secondary"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-card cleaning" data-status="cleaning">
+                        <div class="room-header">
+                            <span class="room-number">#415</span>
+                            <span class="room-type">Deluxe Suite</span>
+                        </div>
+                        <div class="room-image-placeholder">
+                            <i class="fas fa-broom"></i>
+                        </div>
+                        <div class="room-status">
+                            <span class="status-badge cleaning">Cleaning</span>
+                            <span>ETA: 15min</span>
+                        </div>
+                        <div class="room-details">
+                            <div class="room-price">$480 / night</div>
+                            <div class="room-actions">
+                                <button class="action-btn small orange">Complete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-card maintenance" data-status="maintenance">
+                        <div class="room-header">
+                            <span class="room-number">#330</span>
+                            <span class="room-type">Family Suite</span>
+                        </div>
+                        <div class="room-image-placeholder">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="room-status">
+                            <span class="status-badge maintenance">Maintenance</span>
+                        </div>
+                        <div class="room-details">
+                            <div class="room-price">$720 / night</div>
+                            <div class="room-actions">
+                                <button class="action-btn small danger">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-card occupied" data-status="occupied">
+                        <div class="room-header">
+                            <span class="room-number">#142</span>
+                            <span class="room-type">Standard Double</span>
+                        </div>
+                        <div class="room-image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="room-status">
+                            <span class="status-badge occupied">Occupied</span>
+                            <span>David Wilson</span>
+                        </div>
+                        <div class="room-details">
+                            <div class="room-price">$280 / night</div>
+                            <div class="room-actions">
+                                <button class="action-btn small warning">Extend</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-card available" data-status="available">
+                        <div class="room-header">
+                            <span class="room-number">#501</span>
+                            <span class="room-type">Penthouse</span>
+                        </div>
+                        <div class="room-image-placeholder">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="room-status">
+                            <span class="status-badge available">VIP Ready</span>
+                        </div>
+                        <div class="room-details">
+                            <div class="room-price">$2,500 / night</div>
+                            <div class="room-actions">
+                                <button class="action-btn small primary">VIP Assign</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more room cards as needed -->
+                </div>
+
+            </div>
+<div class="content-wrapper hidden" id="guestsSection">
+                <!-- Guests Management -->
+                <div class="section-header">
+                    <div>
+                        <h2>Guests</h2>
+                        <p>Current guests (65) | Loyalty members (28) | Total profiles (2,847)</p>
+                    </div>
+                    <div class="section-actions">
+                        <button class="action-btn primary">
+                            <i class="fas fa-plus"></i> Add Guest
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="filters-row">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="guestsSearch" placeholder="Search guests..." class="search-input">
+                    </div>
+                    <select class="form-input" style="width: 160px;">
+                        <option>All Status</option>
+                        <option>Checked In</option>
+                        <option>Checked Out</option>
+                        <option>Future Arrival</option>
+                    </select>
+                    <select class="form-input" style="width: 140px;">
+                        <option>All Loyalty</option>
+                        <option>Gold</option>
+                        <option>Silver</option>
+                        <option>Bronze</option>
+                    </select>
+                </div>
+                
+                <!-- Guests Table -->
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Guest Name</th>
+                                <th>Room</th>
+                                <th>Stay Dates</th>
+                                <th>Phone</th>
+                                <th>Loyalty</th>
+                                <th>Balance</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=John" class="avatar-sm"></td>
+                                <td>John Smith <span style="color: var(--success-green);">● Live</span></td>
+                                <td>Suite 301</td>
+                                <td>Today - Tomorrow</td>
+                                <td>+1 (555) 123-4567</td>
+                                <td><span class="loyalty-badge gold">Gold</span></td>
+                                <td class="text-green">$0.00</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                    <button class="table-btn warning"><i class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Maria" class="avatar-sm"></td>
+                                <td>Maria Garcia</td>
+                                <td>Deluxe 215</td>
+                                <td>Tomorrow - Friday</td>
+                                <td>+63 912 345 6789</td>
+                                <td><span class="loyalty-badge silver">Silver</span></td>
+                                <td>$120.50</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                    <button class="table-btn danger"><i class="fas fa-credit-card"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=David" class="avatar-sm"></td>
+                                <td>David Wilson <span style="color: var(--success-green);">● Live</span></td>
+                                <td>Standard 108</td>
+                                <td>Today only</td>
+                                <td>+44 20 7946 0958</td>
+                                <td>Bronze</td>
+                                <td class="text-green">$0.00</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <!-- Additional sample rows -->
+                            <tr>
+                                <td><img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Lisa" class="avatar-sm"></td>
+                                <td>Lisa Chen</td>
+                                <td>-</td>
+                                <td>Cancelled</td>
+                                <td>+86 138 0013 8000</td>
+                                <td>Gold</td>
+                                <td>$0.00</td>
+                                <td>
+                                    <button class="table-btn secondary"><i class="fas fa-history"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Robert" class="avatar-sm"></td>
+                                <td>Robert Johnson</td>
+                                <td>Junior Suite 205</td>
+                                <td>Next week</td>
+                                <td>+1 (555) 987-6543</td>
+                                <td><span class="loyalty-badge silver">Silver</span></td>
+                                <td>$500 deposit</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Sophia" class="avatar-sm"></td>
+                                <td>Sophia Lee <span style="color: var(--success-green);">● VIP</span></td>
+                                <td>Presidential 501</td>
+                                <td>Fri - Next Tue</td>
+                                <td>+82 10 1234 5678</td>
+                                <td><span class="loyalty-badge gold">Platinum</span></td>
+                                <td>$0.00</td>
+                                <td>
+                                    <button class="table-btn primary"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-footer">
+                    <span>Showing 1-6 of 65 current guests</span>
+                    <div class="pagination">
+                        <button><i class="fas fa-chevron-left"></i></button>
+                        <span>1 of 11</span>
+                        <button><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+<div class="content-wrapper hidden" id="staffSection">
+                <!-- Staff Management -->
+                <div class="section-header">
+                    <div>
+                        <h2>Staff</h2>
+                        <p>42 active employees | 8 on duty | Average performance 92%</p>
+                    </div>
+                    <div class="section-actions">
+                        <button class="action-btn primary">
+                            <i class="fas fa-user-plus"></i> Add Staff
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="filters-row">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="staffSearch" placeholder="Search staff..." class="search-input">
+                    </div>
+                    <select class="form-input" style="width: 160px;">
+                        <option>All Departments</option>
+                        <option>Front Desk</option>
+                        <option>Housekeeping</option>
+                        <option>Restaurant</option>
+                        <option>Maintenance</option>
+                    </select>
+                    <select class="form-input" style="width: 140px;">
+                        <option>All Status</option>
+                        <option>On Duty</option>
+                        <option>Off Duty</option>
+                        <option>Break</option>
+                    </select>
+                </div>
+                
+                <!-- Staff Table -->
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Shift</th>
+                                <th>Status</th>
+                                <th>Performance</th>
+                                <th>Schedule</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Sarah" class="avatar-sm"></td>
+                                <td>Sarah Thompson</td>
+                                <td>General Manager</td>
+                                <td>08:00-18:00</td>
+                                <td><span class="status-dot online"></span> On Duty</td>
+                                <td><div class="progress-bar small"><div style="width: 98%"></div></td>
+                                <td>Full week</td>
+                                <td><button class="table-btn primary"><i class="fas fa-eye"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Mike" class="avatar-sm"></td>
+                                <td>Mike Rodriguez</td>
+                                <td>Front Desk Lead</td>
+                                <td>06:00-14:00</td>
+                                <td><span class="status-dot online"></span> On Duty</td>
+                                <td><div class="progress-bar small"><div style="width: 95%"></div></td>
+                                <td>Mon-Fri</td>
+                                <td><button class="table-btn primary"><i class="fas fa-eye"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Lisa" class="avatar-sm"></td>
+                                <td>Lisa Wang</td>
+                                <td>Housekeeper</td>
+                                <td>09:00-17:00</td>
+                                <td><span class="status-dot online"></span> On Duty</td>
+                                <td><div class="progress-bar small"><div style="width: 89%"></div></td>
+                                <td>Daily</td>
+                                <td><button class="table-btn primary"><i class="fas fa-eye"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Carlos" class="avatar-sm"></td>
+                                <td>Carlos Mendoza</td>
+                                <td>Maintenance Tech</td>
+                                <td>07:00-15:00</td>
+                                <td><span class="status-dot maintenance"></span> Service</td>
+                                <td><div class="progress-bar small"><div style="width: 92%"></div></td>
+                                <td>On Call</td>
+                                <td><button class="table-btn warning"><i class="fas fa-edit"></i></button></td>
+                            </tr>
+                            <!-- More staff rows -->
+                            <tr>
+                                <td><img src="https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Emma" class="avatar-sm"></td>
+                                <td>Emma Patel</td>
+                                <td>Restaurant Manager</td>
+                                <td>Off Duty</td>
+                                <td><span class="status-dot offline"></span> Off</td>
+                                <td><div class="progress-bar small"><div style="width: 96%"></div></td>
+                                <td>Weekend</td>
+                                <td><button class="table-btn secondary">Schedule</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-footer">
+                    <span>Showing 1-5 of 42 staff members</span>
+                    <div class="pagination">
+                        <button><i class="fas fa-chevron-left"></i></button>
+                        <span>1 of 9</span>
+                        <button><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+<div class="content-wrapper hidden" id="billingSection">
+                <!-- Billing Management -->
+                <div class="section-header">
+                    <div>
+                        <h2>Billing</h2>
+                        <p>$24,500 today | 98 unpaid folios | $15,240 outstanding</p>
+                    </div>
+                    <div class="section-actions">
+
+<button class="action-btn primary" onclick="createNewInvoice()">
+                            <i class="fas fa-receipt"></i> New Invoice
+</button>
+
+                    </div>
+                </div>
+                
+                <!-- Quick Payment Stats -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-number">$24,500</div>
+                        <div class="stat-label">Today Revenue</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">$89,200</div>
+                        <div class="stat-label">This Month</div>
+                    </div>
+                    <div class="stat-card warning">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Overdue</div>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="filters-row">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="billingSearch" placeholder="Search folios..." class="search-input">
+                    </div>
+                    <select class="form-input" style="width: 160px;">
+                        <option>All Status</option>
+                        <option>Unpaid</option>
+                        <option>Paid</option>
+                        <option>Partial</option>
+                        <option>Refunded</option>
+                    </select>
+                    <select class="form-input" style="width: 140px;">
+                        <option>All Dates</option>
+                        <option>Today</option>
+                        <option>7 Days</option>
+                        <option>30 Days</option>
+                    </select>
+                </div>
+                
+                <!-- Billing Table -->
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Folio ID</th>
+                                <th>Guest</th>
+                                <th>Room</th>
+                                <th>Charges</th>
+                                <th>Total</th>
+                                <th>Paid</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>FOL-001</td>
+                                <td>John Smith</td>
+                                <td>Suite 301</td>
+                                <td>Room: $360<br>Food: $60<br>Services: $30</td>
+                                <td>$450</td>
+                                <td>$450</td>
+                                <td class="text-green">$0</td>
+                                <td><span class="status-badge paid">Paid</span></td>
+                                <td><button class="table-btn secondary"><i class="fas fa-download"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td>FOL-002</td>
+                                <td>Maria Garcia</td>
+                                <td>Deluxe 215</td>
+                                <td>Room: $600<br>Food: $90<br>Spa: $30</td>
+                                <td>$720</td>
+                                <td>$600</td>
+                                <td>$120.50</td>
+                                <td><span class="status-badge partial">Partial</span></td>
+                                <td><button class="table-btn primary">Pay Now</button></td>
+                            </tr>
+                            <tr>
+                                <td>FOL-003</td>
+                                <td>David Wilson</td>
+                                <td>Standard 108</td>
+                                <td>Room: $180</td>
+                                <td>$180</td>
+                                <td>$0</td>
+                                <td class="text-orange">$180</td>
+                                <td><span class="status-badge unpaid">Unpaid</span></td>
+                                <td><button class="table-btn danger">Invoice</button></td>
+                            </tr>
+                            <!-- Additional billing rows -->
+                            <tr>
+                                <td>FOL-004</td>
+                                <td>Sophia Lee</td>
+                                <td>Presidential 501</td>
+                                <td>Room: $2,800<br>F&amp;B: $300<br>Spa: $100</td>
+                                <td>$3,200</td>
+                                <td>$3,200</td>
+                                <td class="text-green">$0</td>
+                                <td><span class="status-badge paid">VIP Paid</span></td>
+                                <td><button class="table-btn secondary"><i class="fas fa-print"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-footer">
+                    <span>Showing 1-4 of 156 folios</span>
+                    <div class="pagination">
+                        <button><i class="fas fa-chevron-left"></i></button>
+                        <span>1 of 39</span>
+                        <button><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+<div class="content-wrapper hidden" id="reportsSection">
+                <!-- Reports & Analytics -->
+                <div class="section-header">
+                    <div>
+                        <h2>Reports</h2>
+                        <p>Performance analytics | Revenue insights | Occupancy trends</p>
+                    </div>
+                    <div class="section-actions">
+                        <button class="action-btn primary">
+                            <i class="fas fa-download"></i> Export PDF
+                        </button>
+                        <button class="action-btn secondary">
+                            <i class="fas fa-share"></i> Share
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Reports Filters -->
+                <div class="filters-row">
+                    <div class="date-range">
+                        <input type="date" id="reportStartDate">
+                        <span>to</span>
+                        <input type="date" id="reportEndDate">
+                    </div>
+                    <select class="form-input" style="width: 160px;">
+                        <option>Revenue</option>
+                        <option>Occupancy</option>
+                        <option>Reservations</option>
+                        <option>Guests</option>
+                    </select>
+                    <button class="action-btn small">Apply</button>
+                </div>
+                
+                <!-- Charts Grid -->
+                <div class="charts-grid">
+                    <!-- Revenue Chart -->
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Monthly Revenue</h3>
+                            <p>$89,240 total</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="revenueMonthlyChart" height="200"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Occupancy Chart -->
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Occupancy Rate</h3>
+                            <p>78% average</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="occupancyChart" height="200"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Top Revenue Sources -->
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Revenue by Source</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="revenuePieChart" height="200"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Guest Nationalities -->
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Guest Nationalities</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="nationalityChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Key Metrics Cards -->
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div>
+                            <div class="metric-number">$89,240</div>
+                            <div class="metric-label">Monthly Revenue</div>
+                            <div class="metric-change up">+12% vs last month</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div>
+                            <div class="metric-number">9,847</div>
+                            <div class="metric-label">Total Nights</div>
+                            <div class="metric-change up">+8%</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <div class="metric-number">78%</div>
+                            <div class="metric-label">Avg Occupancy</div>
+                            <div class="metric-change up">+3.2 pts</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <div class="metric-number">1,420</div>
+                            <div class="metric-label">Total Guests</div>
+                            <div class="metric-change up">+15%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<div class="content-wrapper hidden" id="settingsSection">
+                <!-- Settings -->
+                <div class="section-header">
+                    <h2>Settings</h2>
+                    <p>Configure hotel operations and preferences</p>
+                </div>
+                
+                <!-- Settings Tabs -->
+                <div class="tabs-container">
+                    <div class="tabs-header">
+                        <button class="tab-btn active" data-tab="general">General</button>
+                        <button class="tab-btn" data-tab="hotel">Hotel Info</button>
+                        <button class="tab-btn" data-tab="rates">Room Rates</button>
+                        <button class="tab-btn" data-tab="users">Users</button>
+                        <button class="tab-btn" data-tab="integrations">Integrations</button>
+                    </div>
+                    
+                    <!-- General Tab -->
+                    <div class="tab-content active" id="generalTab">
+                        <div class="settings-grid">
+                            <div class="form-group">
+                                <label>Hotel Name</label>
+                                <input type="text" value="Luxury Stays Grand Hotel" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Currency</label>
+                                <select class="form-input">
+                                    <option>USD $</option>
+                                    <option>EUR €</option>
+                                    <option>GBP £</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Time Zone</label>
+                                <select class="form-input">
+                                    <option>UTC-5 (EST)</option>
+                                    <option>UTC-8 (PST)</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Default Check-in Time</label>
+                                <div class="time-inputs">
+                                    <input type="time" value="14:00" class="form-input" style="width: 120px;">
+                                    <span>-</span>
+                                    <input type="time" value="11:00" class="form-input" style="width: 120px;">
+                                    <small>Check-out time</small>
+                                </div>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    Auto-assign housekeeping after checkout
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                    Enable online payments
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-actions">
+                            <button class="action-btn primary" onclick="saveSettings()">Save Changes</button>
+                            <button class="action-btn secondary">Reset to Defaults</button>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Hotel Info Tab -->
+                    <div class="tab-content" id="hotelTab">
+                        <div class="settings-grid">
+                            <div class="form-group full-width">
+                                <label>Address</label>
+                                <textarea class="form-input" rows="3">123 Luxury Boulevard, Downtown, NY 10001</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="tel" value="+1 (555) 123-4567" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" value="reservations@luxurystays.com" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Star Rating</label>
+                                <select class="form-input">
+                                    <option>5 Stars</option>
+                                    <option>4 Stars</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Room Rates Tab -->
+                    <div class="tab-content" id="ratesTab">
+                        <div class="rates-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Room Type</th>
+                                        <th>Weekdays</th>
+                                        <th>Weekends</th>
+                                        <th>Peak Season</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Standard Single</td>
+                                        <td>$180</td>
+                                        <td>$220</td>
+                                        <td>$250</td>
+                                        <td><button class="table-btn small">Edit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Deluxe Double</td>
+                                        <td>$320</td>
+                                        <td>$380</td>
+                                        <td>$450</td>
+                                        <td><button class="table-btn small">Edit</button></td>
+                                    </tr>
+                                    <tr class="highlight">
+                                        <td>Presidential Suite</td>
+                                        <td>$1,800</td>
+                                        <td>$2,200</td>
+                                        <td>$2,800</td>
+                                        <td><button class="table-btn small primary">Edit</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 id="modalTitle">Modal Title</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer" id="modalFooter"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+

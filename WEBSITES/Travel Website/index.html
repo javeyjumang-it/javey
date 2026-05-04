@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelVista - Your Adventure Awaits</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-plane"></i>
+                <span>TravelVista</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#tours">Tours</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" id="loginBtn">Admin Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Discover Your Next Adventure</h1>
+            <p>Explore breathtaking destinations with our premium travel packages. Book now and create memories that last a lifetime.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" id="bookNowBtn">Book Now</button>
+                <button class="btn-secondary">View Tours</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Mountain Adventure">
+        </div>
+    </section>
+
+    <!-- Featured Tours -->
+    <section id="tours" class="tours">
+        <div class="container">
+            <h2>Featured Tours</h2>
+            <div class="tours-grid">
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Beach Paradise">
+                    <div class="tour-info">
+                        <h3>Beach Paradise</h3>
+                        <div class="tour-details">
+                            <span class="price">$999</span>
+                            <span class="duration">7 Days</span>
+                        </div>
+                        <p>Relax on pristine beaches with all-inclusive luxury.</p>
+                        <button class="btn-book">Book Now</button>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80" alt="Mountain Trek">
+                    <div class="tour-info">
+                        <h3>Mountain Trek</h3>
+                        <div class="tour-details">
+                            <span class="price">$1,499</span>
+                            <span class="duration">10 Days</span>
+                        </div>
+                        <p>Conquer peaks and enjoy stunning panoramic views.</p>
+                        <button class="btn-book">Book Now</button>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2073&q=80" alt="City Escape">
+                    <div class="tour-info">
+                        <h3>City Escape</h3>
+                        <div class="tour-details">
+                            <span class="price">$799</span>
+                            <span class="duration">5 Days</span>
+                        </div>
+                        <p>Discover vibrant city life and cultural landmarks.</p>
+                        <button class="btn-book">Book Now</button>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Wild Safari">
+                    <div class="tour-info">
+                        <h3>Wild Safari</h3>
+                        <div class="tour-details">
+                            <span class="price">$2,199</span>
+                            <span class="duration">12 Days</span>
+                        </div>
+                        <p>Experience wildlife in their natural habitat.</p>
+                        <button class="btn-book">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section id="booking" class="booking-modal hidden">
+        <div class="booking-overlay" id="bookingOverlay"></div>
+        <div class="booking-content">
+            <h2>Book Your Adventure</h2>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <input type="text" id="fullName" placeholder="Full Name" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" placeholder="Phone">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <select id="tourSelect" required>
+                            <option value="">Select Tour</option>
+                            <option value="beach">Beach Paradise</option>
+                            <option value="mountain">Mountain Trek</option>
+                            <option value="city">City Escape</option>
+                            <option value="safari">Wild Safari</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="travelDate" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea id="specialReq" placeholder="Special Requirements"></textarea>
+                </div>
+                <button type="submit" class="btn-primary full-width">Confirm Booking</button>
+            </form>
+            <button id="closeBooking" class="close-btn">×</button>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2>What Our Travelers Say</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial active">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&w=150&h=150&fit=crop" alt="Sarah">
+                    <p>"Life-changing experience! The guides were amazing."</p>
+                    <h4>Sarah Johnson</h4>
+                </div>
+                <div class="testimonial">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&w=150&h=150&fit=crop" alt="Mike">
+                    <p>"Best vacation ever. Exceeded all expectations!"</p>
+                    <h4>Mike Chen</h4>
+                </div>
+                <div class="testimonial">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&w=150&h=150&fit=crop" alt="Emma">
+                    <p>"Perfectly organized. Will book again!"</p>
+                    <h4>Emma Wilson</h4>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="nav-btn prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p class="demo-login">Demo: admin@travelvista.com / admin123</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-plane"></i>
+                    <span>TravelVista</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Support</a>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TravelVista. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

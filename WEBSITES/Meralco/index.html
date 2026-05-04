@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meralco - Powering Your Life</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Customer Header -->
+    <header class="header customer-header">
+        <div class="container">
+            <div class="logo">
+                <h1>⚡ Meralco</h1>
+            </div>
+            <nav class="nav customer-nav">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#bill" class="nav-link">Bill Pay</a>
+                <a href="#outage" class="nav-link">Outages</a>
+                <a href="#services" class="nav-link">Services</a>
+            </nav>
+            <div class="header-actions">
+            <button class="admin-login-btn" id="adminLoginBtn">Admin</button>
+
+    <!-- Admin Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <h3>🔐 Admin Login</h3>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" placeholder="Enter admin password" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelLogin">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Customer Public Sections (visible by default) -->
+<div id="customer-content">
+        <!-- Enhanced Hero -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>⚡ Powering Manila with Reliable Energy</h1>
+                    <p>Manila Electric Company - Your trusted partner for electricity services across Metro Manila and surrounding areas. 24/7 support.</p>
+            <div class="hero-buttons">
+                        <a href="#bill" class="btn btn-primary large">📊 Bill Calculator</a>
+                        <a href="#outage" class="btn btn-secondary large">🚨 Report Outage</a>
+                    </div>
+                    <!-- Live Bill Preview Slider -->
+                    <div class="hero-slider">
+                        <label for="heroKwhSlider">Quick Estimate:</label>
+                        <input type="range" id="heroKwhSlider" min="0" max="500" value="200" class="slider">
+                        <div>Est. Bill: <span id="heroBillPreview">~₱2,000</span></div>
+                    </div>
+                    <div class="hero-stats">
+                        <div>
+                            <div class="stat-number" data-counter="25">0</div>
+                            <div class="stat-label">Years Serving</div>
+                        </div>
+                        <div>
+                            <div class="stat-number" data-counter="10">0</div>
+                            <div class="stat-label">Million Customers</div>
+                        </div>
+                        <div>
+                            <div class="stat-number" data-counter="99.9">0</div>
+                            <div class="stat-label">% Uptime</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bill Payment Calculator -->
+        <section id="bill" class="section bill-section">
+            <div class="container">
+                <h2 class="section-title">💰 Bill Calculator & Payment</h2>
+                <p class="section-subtitle">Estimate your monthly electricity bill based on usage. Rates based on current Meralco residential tiers.</p>
+                <div class="bill-calculator">
+                    <div class="calc-form">
+                        <form id="billForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="kwh">Monthly kWh Usage</label>
+                                    <input type="number" id="kwh" min="0" step="0.1" placeholder="e.g. 200" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="rateClass">Rate Class</label>
+                                    <select id="rateClass">
+                                        <option value="residential">Residential</option>
+                                        <option value="commercial">Commercial</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="fixedCharge">Fixed Charge (₱/month)</label>
+                                <input type="number" id="fixedCharge" value="87.59" step="0.01" readonly>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Senior Discount?</label>
+                                    <select id="seniorDiscount">
+                                        <option value="0">No</option>
+                                        <option value="0.05">Yes (5%)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary full-width">Calculate Bill</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="bill-result">
+                        <h3>Estimated Bill: <span id="totalBill">₱0.00</span></h3>
+                        <canvas id="billChart"></canvas>
+                    <div class="breakdown" id="billBreakdown"></div>
+                    <h4>History</h4>
+                    <ul id="billHistoryList" class="history-list"></ul>
+                        <div class="usage-tip" id="usageTip"></div>
+                        <a href="#payment" class="btn btn-success full-width">Pay Bill Online</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Outage Reporting -->
+        <section id="outage" class="section outage-section">
+            <div class="container">
+                <h2 class="section-title">🚨 Outage Map & Report</h2>
+                <div class="outage-content">
+                    <div>
+                        <h3>Live Outage Map</h3>
+                        <p>Click areas to check status. Last updated: <span id="mapUpdate"></span></p>
+                        <div class="outage-map">
+                            <svg class="map-svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet">
+                                <!-- Simplified Luzon map with Metro Manila focus -->
+                                <path d="M150 200 Q170 180 200 200 Q220 220 200 240 Q180 260 150 240 Z" class="pin online" data-status="Pasig: Online" data-location="Pasig"/>
+                                <path d="M220 150 Q250 130 280 160 Q260 190 230 170 Z" class="pin warning" data-status="QC: Maintenance" data-location="Quezon City"/>
+                                <path d="M180 250 Q210 270 240 260 Q230 290 200 280 Z" class="pin offline" data-status="Makati: Outage" data-location="Makati"/>
+                                <path d="M120 220 Q140 200 160 230 Q140 260 120 240 Z" class="pin online" data-status="Mandaluyong: Online" data-location="Mandaluyong"/>
+                                <path d="M260 200 Q290 180 310 210 Q280 240 260 220 Z" class="pin online" data-status="Taguig: Online" data-location="Taguig"/>
+                                <!-- More areas... -->
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="outage-form-container">
+                        <h3>Report Power Outage</h3>
+                        <form id="outageForm">
+                            <div class="form-group">
+                                <label for="accountNo">Account Number</label>
+                                <input type="text" id="accountNo" placeholder="e.g. 1234567890">
+                            </div>
+                            <div class="form-group">
+                                <label for="outageLocation">Location/Barangay</label>
+                                <input type="text" id="outageLocation" placeholder="e.g. Barangay Pineda">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Contact Phone</label>
+                                <input type="tel" id="phone" placeholder="09XX-XXX-XXXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="details">Details</label>
+                                <textarea id="details" rows="3" placeholder="When did outage start? Any sparks/smoke?"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-warning full-width">Submit Report</button>
+                        </form>
+                        <div class="emergency">
+                            <h4>Emergency Hotline</h4>
+                            <p><strong>16211</strong> or <strong>0917-879-16211</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="services" class="section">
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">💳</div>
+                        <h3>Online Bill Payment</h3>
+                        <p>Pay securely via GCash, Maya, bank transfer or credit card.</p>
+                        <a href="#bill" class="service-link">Pay Now →</a>
+                    </div>
+                    <!-- Service Details Modal -->
+                    <div class="modal" id="serviceModal">
+                        <div class="modal-content wide">
+                            <h3 id="serviceTitle">Service Details</h3>
+                            <p id="serviceDesc">Click a service card to see more info.</p>
+                            <div class="modal-actions">
+                                <button class="btn btn-secondary" onclick="closeModal('serviceModal')">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🏠</div>
+                        <h3>New Service Application</h3>
+                        <p>Apply for new electricity connection for home or business.</p>
+                        <a href="#" class="service-link">Apply →</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🔌</div>
+                        <h3>Energy Audit</h3>
+                        <p>Free energy audit to reduce your consumption and save money.</p>
+                        <a href="#contact" class="service-link">Schedule →</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">☀️</div>
+                        <h3>Solar Net Metering</h3>
+                        <p>Go green with solar panels and get paid for excess power.</p>
+                        <a href="#" class="service-link">Learn More →</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🚗</div>
+                        <h3>EV Charging Stations</h3>
+                        <p>Locate and use Meralco EV charging infrastructure.</p>
+                        <a href="#" class="service-link">Find Stations →</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📞</div>
+                        <h3>24/7 Customer Support</h3>
+                        <p>Help center, FAQs, live chat, and phone support.</p>
+                        <a href="#contact" class="service-link">Contact Us →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section contact-section">
+            <div class="container">
+                <h2 class="section-title">Contact Us</h2>
+                <div class="contact-content">
+                    <div>
+                        <h3>Get in Touch</h3>
+                        <div class="contact-item">
+                            <strong>Business Centers:</strong><br>
+                            Open 7AM-6PM (Mon-Sat)
+                        </div>
+                        <div class="contact-item">
+                            <strong>Hotlines:</strong><br>
+                            16211 | 0917-879-16211
+                        </div>
+                        <div class="contact-item">
+                            <strong>Email:</strong><br>
+                            customer.care@meralco.com.ph
+                        </div>
+                        <div class="contact-item">
+                            <strong>Address:</strong><br>
+                            Ortigas Center, Pasig City 1600
+                        </div>
+                    </div>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Name</label>
+                                <input type="text" id="contactName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email</label>
+                                <input type="email" id="contactEmail" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <select id="contactSubject" required>
+                                <option value="">Select...</option>
+                                <option>Billing Issue</option>
+                                <option>Service Request</option>
+                                <option>Complaint</option>
+                                <option>General Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 Manila Electric Company (MERALCO). All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+                <p>ERC License No. 06-07-R | Follow us: <a href="#">Facebook</a> | <a href="#">Twitter</a></p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Admin Dashboard (hidden by default) -->
+    <div id="admin-content" style="display: none;">
+        <header class="top-navbar">
+            <div class="nav-left">
+                <h1>Meralco Admin Dashboard</h1>
+            </div>
+            <div class="nav-right">
+                <div class="user-profile" id="userProfile">Admin</div>
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+                <button class="btn-logout" id="logoutBtn">Logout</button>
+            </div>
+        </header>
+
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard">📊 Dashboard</a>
+                <a href="#" class="nav-item" data-page="monitoring">⚡ Monitoring</a>
+                <a href="#" class="nav-item" data-page="billing">💰 Billing</a>
+                <a href="#" class="nav-item" data-page="users">👥 Users</a>
+                <a href="#" class="nav-item" data-page="reports">📈 Reports</a>
+                <a href="#" class="nav-item" data-page="settings">⚙️ Settings</a>
+                <a href="#" class="nav-item" data-page="outages">🚨 Outages</a>
+            </nav>
+        </aside>
+
+        <!-- Mobile Sidebar Toggle -->
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <section id="dashboard-page" class="page active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Energy</h3>
+                        <div class="stat-value" data-stat="totalEnergy">12,450 kWh</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Current Usage</h3>
+                        <div class="stat-value" data-stat="currentUsage">2.4 kW</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Monthly Cost</h3>
+                        <div class="stat-value" data-stat="monthlyCost">₱1,245</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Meters</h3>
+                        <div class="stat-value" data-stat="activeMeters">45</div>
+                    </div>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Energy Usage</h3>
+                        <canvas id="usageChartDash"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Monthly Data</h3>
+                        <canvas id="monthlyChartDash"></canvas>
+                    </div>
+                </div>
+                <div class="alerts">
+                    <h3>Alerts</h3>
+                    <div class="alert-list" id="alertList">
+                        <div class="alert high">High usage on Meter #23</div>
+                        <div class="alert medium">Payment due Meter #45</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Monitoring Page -->
+            <section id="monitoring-page" class="page">
+                <div class="page-header">
+                    <h2>Energy Monitoring</h2>
+                    <input type="text" id="monitoringSearch" placeholder="Search meters...">
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Meter ID</th><th>Location</th><th>Usage</th><th>Status</th></tr>
+                    </thead>
+                    <tbody id="monitoringTable"></tbody>
+                </table>
+            </section>
+
+            <!-- Billing Page -->
+            <section id="billing-page" class="page">
+                <div class="page-header">
+                    <h2>Billing</h2>
+                    <button class="btn btn-primary" id="generateBill">Generate Bill</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>User</th><th>Units</th><th>Cost/Unit</th><th>Total</th><th>Status</th></tr>
+                    </thead>
+                    <tbody id="billingTable"></tbody>
+                </table>
+            </section>
+
+            <!-- Users Page -->
+            <section id="users-page" class="page">
+                <div class="page-header">
+                    <h2>User Management</h2>
+                    <button class="btn btn-primary" id="addUserBtn">Add User</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Name</th><th>Role</th><th>Email</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody id="usersTable"></tbody>
+                </table>
+            </section>
+
+            <!-- Reports Page -->
+            <section id="reports-page" class="page">
+                <div class="page-header">
+                    <h2>Reports</h2>
+                    <button class="btn btn-secondary" id="exportReport">Export</button>
+                </div>
+                <div class="chart-card">
+                    <h3>Yearly Summary</h3>
+                    <canvas id="yearlyChartDash"></canvas>
+                </div>
+            </section>
+
+            <!-- Settings Page -->
+            <section id="settings-page" class="page">
+                <div class="page-header">
+                    <h2>Settings</h2>
+                </div>
+                <form class="settings-form">
+                    <label>Cost per kWh: <input type="number" id="costPerKwh" value="0.10" step="0.01"> ₱</label>
+                    <label><input type="checkbox" id="notifications"> Enable Alerts</label>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </section>
+
+            <!-- Outages Page -->
+            <section id="outages-page" class="page">
+                <div class="page-header">
+                    <h2>Outage Management</h2>
+                    <button class="btn btn-primary" id="addOutageBtn">Add Outage</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Report ID</th><th>Account</th><th>Location</th><th>Status</th><th>ETA</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody id="outagesTable">
+                        <tr>
+                            <td>MER123456</td>
+                            <td>1234567890</td>
+                            <td>Pasig Barangay Pineda</td>
+                            <td class="status-warning">Pending</td>
+                            <td>30 min</td>
+                            <td><button class="dispatch-btn btn btn-success small">Dispatch</button></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <!-- User Modal -->
+        <div class="modal" id="userModal">
+            <div class="modal-content">
+                <h3>Add User</h3>
+                <form id="userForm">
+                    <input type="text" placeholder="Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <select required>
+                        <option value="">Role</option>
+                        <option>Admin</option>
+                        <option>Technician</option>
+                    </select>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

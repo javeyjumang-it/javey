@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece Characters | Encyclopedia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Pirata+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-950 text-white font-outfit overflow-x-hidden">
+    
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="pirate-ship">
+            <i class="fas fa-ship"></i>
+        </div>
+        <p>Setting Sail...</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-skull-crossbones"></i>
+                <span>One Piece</span>
+            </a>
+            <div class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#pirates">Pirates</a>
+                <a href="#marines">Marines</a>
+                <a href="#others">Others</a>
+                <a href="admin.html" class="admin-login-btn"><i class="fas fa-user-shield"></i> Admin</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="wave wave1"></div>
+            <div class="wave wave2"></div>
+            <div class="wave wave3"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-main">One Piece</span>
+                <span class="title-sub">Character Encyclopedia</span>
+            </h1>
+            <p class="hero-subtitle">Explore all characters - Pirates, Marines, Government & More</p>
+            <div class="hero-buttons">
+                <a href="#pirates" class="btn btn-primary">
+                    <i class="fas fa-compass"></i> Explore Pirates
+                </a>
+                <a href="#marines" class="btn btn-secondary">
+                    <i class="fas fa-anchor"></i> Marines
+                </a>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search by name, crew, or ability...">
+                    <button class="clear-search" id="clearSearch">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="filter-container" id="filterContainer">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                </div>
+            </div>
+            <div class="results-info">
+                <span id="resultCount">Showing all characters</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pirates Section -->
+    <section class="grouped-section" id="pirates">
+        <div class="container">
+            <div class="section-header pirates-header">
+                <h2 class="section-title">
+                    <i class="fas fa-jolly-roger"></i> Pirate Organizations
+                </h2>
+                <p class="section-subtitle">All pirate crews and their members</p>
+            </div>
+            
+            <!-- Four Emperors - With Flip Cards -->
+            <div class="crew-group" data-crew="four-emperors">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon emperors-bg">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Four Emperors</h3>
+                        <p>The Four Most Powerful Pirates Ruling the New World</p>
+                    </div>
+                    <span class="crew-count">4 Emperors</span>
+                </div>
+                <p class="flip-instruction"><i class="fas fa-hand-pointer"></i> Click cards to flip and see why they're Emperors!</p>
+                <div class="characters-grid" id="emperorsGrid"></div>
+            </div>
+
+            <!-- Straw Hat Pirates -->
+            <div class="crew-group" data-crew="straw-hat">
+                <div class="crew-group-header clickable-crew" onclick="showCrewMembers('straw-hat')">
+                    <div class="crew-group-icon straw-hat-bg">
+                        <i class="fas fa-hat-wizard"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Straw Hat Pirates</h3>
+                        <p>Captain: Monkey D. Luffy "Straw Hat Luffy"</p>
+                    </div>
+                    <span class="crew-count">10 Members <i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="crew-members" id="straw-hat-members" style="display:none;">
+                    <div class="characters-grid" id="strawHatGrid"></div>
+                </div>
+            </div>
+
+            <!-- Big Mom Pirates -->
+            <div class="crew-group" data-crew="big-mom">
+                <div class="crew-group-header clickable-crew" onclick="showCrewMembers('big-mom')">
+                    <div class="crew-group-icon emperors-bg" style="background: linear-gradient(135deg, #ff69b4, #db7093);">
+                        <i class="fas fa-candy"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Big Mom Pirates</h3>
+                        <p>Captain: Charlotte Lincle "Big Mom"</p>
+                    </div>
+                    <span class="crew-count">View Members <i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="crew-members" id="big-mom-members" style="display:none;">
+                    <div class="characters-grid" id="bigMomGrid"></div>
+                </div>
+            </div>
+
+            <!-- Beast Pirates -->
+            <div class="crew-group" data-crew="beast">
+                <div class="crew-group-header clickable-crew" onclick="showCrewMembers('beast')">
+                    <div class="crew-group-icon emperors-bg" style="background: linear-gradient(135deg, #8b4513, #654321);">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Beast Pirates</h3>
+                        <p>Captain: Kaido "Beast Kaido"</p>
+                    </div>
+                    <span class="crew-count">View Members <i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="crew-members" id="beast-members" style="display:none;">
+                    <div class="characters-grid" id="beastPiratesGrid"></div>
+                </div>
+            </div>
+
+            <!-- Red-Haired Pirates -->
+            <div class="crew-group" data-crew="red-hair">
+                <div class="crew-group-header clickable-crew" onclick="showCrewMembers('red-hair')">
+                    <div class="crew-group-icon emperors-bg" style="background: linear-gradient(135deg, #dc143c, #b22222);">
+                        <i class="fas fa-bandana"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Red-Haired Pirates</h3>
+                        <p>Captain: Shanks "Red-Haired"</p>
+                    </div>
+                    <span class="crew-count">View Members <i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="crew-members" id="red-hair-members" style="display:none;">
+                    <div class="characters-grid" id="redHairGrid"></div>
+                </div>
+            </div>
+
+            <!-- Blackbeard Pirates -->
+            <div class="crew-group" data-crew="blackbeard">
+                <div class="crew-group-header clickable-crew" onclick="showCrewMembers('blackbeard')">
+                    <div class="crew-group-icon emperors-bg" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+                        <i class="fas fa-skull"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Blackbeard Pirates</h3>
+                        <p>Captain: Marshall D. Teach "Blackbeard"</p>
+                    </div>
+                    <span class="crew-count">View Members <i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="crew-members" id="blackbeard-members" style="display:none;">
+                    <div class="characters-grid" id="blackbeardGrid"></div>
+                </div>
+            </div>
+
+            <!-- Kid Pirates -->
+            <div class="crew-group" data-crew="kid">
+                <div class="crew-group-header clickable-crew" onclick="showCrewMembers('kid')">
+                    <div class="crew-group-icon novass-bg">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Kid Pirates</h3>
+                        <p>Captain: Eustass Kid "Captain Kid"</p>
+                    </div>
+                    <span class="crew-count">View Members <i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="crew-members" id="kid-members" style="display:none;">
+                    <div class="characters-grid" id="kidPiratesGrid"></div>
+                </div>
+            </div>
+
+            <!-- Heart Pirates -->
+            <div class="crew-group" data-crew="heart">
+                <div class="crew-group-header clickable-crew" onclick="showCrewMembers('heart')">
+                    <div class="crew-group-icon warlords-bg">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Heart Pirates</h3>
+                        <p>Captain: Trafalgar D. Water Law</p>
+                    </div>
+                    <span class="crew-count">View Members <i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="crew-members" id="heart-members" style="display:none;">
+                    <div class="characters-grid" id="heartPiratesGrid"></div>
+                </div>
+            </div>
+
+            <!-- Roger Pirates -->
+            <div class="crew-group" data-crew="roger">
+                <div class="crew-group-header clickable-crew" onclick="showCrewMembers('roger')">
+                    <div class="crew-group-icon legend-bg">
+                        <i class="fas fa-treasure-chest"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Roger Pirates</h3>
+                        <p>Captain: Gol D. Roger "Gold Roger"</p>
+                    </div>
+                    <span class="crew-count">View Members <i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="crew-members" id="roger-members" style="display:none;">
+                    <div class="characters-grid" id="rogerPiratesGrid"></div>
+                </div>
+            </div>
+
+            <!-- Whitebeard Pirates -->
+            <div class="crew-group" data-crew="whitebeard">
+                <div class="crew-group-header clickable-crew" onclick="showCrewMembers('whitebeard')">
+                    <div class="crew-group-icon legend-bg" style="background: linear-gradient(135deg, #4a5568, #2d3748);">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Whitebeard Pirates</h3>
+                        <p>Captain: Edward Newgate "Whitebeard"</p>
+                    </div>
+                    <span class="crew-count">View Members <i class="fas fa-chevron-right"></i></span>
+                </div>
+                <div class="crew-members" id="whitebeard-members" style="display:none;">
+                    <div class="characters-grid" id="whitebeardPiratesGrid"></div>
+                </div>
+            </div>
+
+            <!-- Seven Warlords -->
+            <div class="crew-group" data-crew="seven-warlords">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon warlords-bg">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Seven Warlords of the Sea</h3>
+                        <p>Government-Allied Pirates (Former)</p>
+                    </div>
+                    <span class="crew-count">Warlords</span>
+                </div>
+                <div class="characters-grid" id="warlordsGrid"></div>
+            </div>
+
+            <!-- Super Novas -->
+            <div class="crew-group" data-crew="super-novas">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon novass-bg">
+                        <i class="fas fa-meteor"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Super Novas</h3>
+                        <p>The 11 Worst Generation Pirates</p>
+                    </div>
+                    <span class="crew-count">11 Pirates</span>
+                </div>
+                <div class="characters-grid" id="novasGrid"></div>
+            </div>
+
+            <!-- Other Pirates -->
+            <div class="crew-group" data-crew="other-pirates">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon other-bg">
+                        <i class="fas fa-skull"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Other Notable Pirates</h3>
+                        <p>Other Famous Pirates & Crews</p>
+                    </div>
+                    <span class="crew-count">Pirates</span>
+                </div>
+                <div class="characters-grid" id="otherPiratesGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marines Section -->
+    <section class="grouped-section marines-section" id="marines">
+        <div class="container">
+            <div class="section-header marines-header">
+                <h2 class="section-title">
+                    <i class="fas fa-anchor"></i> Marines
+                </h2>
+                <p class="section-subtitle">The World Government's Military Force</p>
+            </div>
+            
+            <!-- Fleet Admiral -->
+            <div class="crew-group" data-crew="fleet-admiral">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon admirals-bg">
+                        <i class="fas fa-star-of-life"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Fleet Admiral</h3>
+                        <p>The Highest Ranking Marine Officer</p>
+                    </div>
+                    <span class="crew-count">1 Position</span>
+                </div>
+                <div class="characters-grid" id="fleetAdmiralGrid"></div>
+            </div>
+
+            <!-- Admirals -->
+            <div class="crew-group" data-crew="admirals">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon admirals-bg">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Admirals</h3>
+                        <p>The Three Highest Ranking Marine Officers</p>
+                    </div>
+                    <span class="crew-count">3 Admirals</span>
+                </div>
+                <div class="characters-grid" id="admiralsGrid"></div>
+            </div>
+
+            <!-- Former Admirals -->
+            <div class="crew-group" data-crew="former-admirals">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon admirals-bg">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Former Admirals</h3>
+                        <p>Admirals Who Retired or Promoted</p>
+                    </div>
+                    <span class="crew-count">Former</span>
+                </div>
+                <div class="characters-grid" id="formerAdmiralsGrid"></div>
+            </div>
+
+            <!-- Vice Admirals -->
+            <div class="crew-group" data-crew="vice-admirals">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon vice-bg">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Vice Admirals</h3>
+                        <p>Senior Marine Officers</p>
+                    </div>
+                    <span class="crew-count">Many</span>
+                </div>
+                <div class="characters-grid" id="viceAdmiralsGrid"></div>
+            </div>
+
+            <!-- Captains -->
+            <div class="crew-group" data-crew="captains">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon commanders-bg">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Marine Captains</h3>
+                        <p>Company Commanders</p>
+                    </div>
+                    <span class="crew-count">Captains</span>
+                </div>
+                <div class="characters-grid" id="captainsGrid"></div>
+            </div>
+
+            <!-- Other Marine Ranks -->
+            <div class="crew-group" data-crew="marine-others">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon commanders-bg">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Other Marine Personnel</h3>
+                        <p>Various Ranks & Positions</p>
+                    </div>
+                    <span class="crew-count">Personnel</span>
+                </div>
+                <div class="characters-grid" id="marineOthersGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Others Section -->
+    <section class="grouped-section others-section" id="others">
+        <div class="container">
+            <div class="section-header others-header">
+                <h2 class="section-title">
+                    <i class="fas fa-globe"></i> Other Notable Characters
+                </h2>
+                <p class="section-subtitle">Revolutionaries, Government, Gods, and More</p>
+            </div>
+            
+            <!-- Five Elders -->
+            <div class="crew-group" data-crew="five-elders">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon admirals-bg" style="background: linear-gradient(135deg, #ffd700, #b8860b);">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Five Elders (Gorosei)</h3>
+                        <p>The Highest Authority in the World Government</p>
+                    </div>
+                    <span class="crew-count">5 Elders</span>
+                </div>
+                <div class="characters-grid" id="eldersGrid"></div>
+            </div>
+
+            <!-- Revolutionaries -->
+            <div class="crew-group" data-crew="revolutionaries">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon legend-bg">
+                        <i class="fas fa-fist-raised"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Revolutionary Army</h3>
+                        <p>The Organization Opposing the World Government</p>
+                    </div>
+                    <span class="crew-count">Revolutionaries</span>
+                </div>
+                <div class="characters-grid" id="revolutionariesGrid"></div>
+            </div>
+
+            <!-- Gods & Ancient Weapons -->
+            <div class="crew-group" data-crew="gods">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon legend-bg" style="background: linear-gradient(135deg, #9f7aea, #6b46c1);">
+                        <i class="fas fa-ghost"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Ancient Gods & Mythical</h3>
+                        <p>Ancient Weapons, Gods, and Mythical Beings</p>
+                    </div>
+                    <span class="crew-count">Mythical</span>
+                </div>
+                <div class="characters-grid" id="godsGrid"></div>
+            </div>
+
+            <!-- Joyboy & Ancient -->
+            <div class="crew-group" data-crew="ancient">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon legend-bg" style="background: linear-gradient(135deg, #f6e05e, #d69e2e);">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Ancient Kingdom & Joyboy</h3>
+                        <p>The Ancient Kingdom and Its Warriors</p>
+                    </div>
+                    <span class="crew-count">Ancient</span>
+                </div>
+                <div class="characters-grid" id="ancientGrid"></div>
+            </div>
+
+            <!-- Holy Knights -->
+            <div class="crew-group" data-crew="holy-knights">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon admirals-bg" style="background: linear-gradient(135deg, #e2e8f0, #a0aec0);">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Holy Knights</h3>
+                        <p>God's Knights - The World's Strongest Military Force</p>
+                    </div>
+                    <span class="crew-count">Knights</span>
+                </div>
+                <div class="characters-grid" id="knightsGrid"></div>
+            </div>
+
+            <!-- World Government -->
+            <div class="crew-group" data-crew="world-government">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon admirals-bg">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>World Government</h3>
+                        <p>Celestial Dragons & Government Officials</p>
+                    </div>
+                    <span class="crew-count">Government</span>
+                </div>
+                <div class="characters-grid" id="worldGovGrid"></div>
+            </div>
+
+            <!-- Cipher Pol -->
+            <div class="crew-group" data-crew="cipher-pol">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon commanders-bg" style="background: linear-gradient(135deg, #1a1a1a, #333);">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Cipher Pol</h3>
+                        <p>Secret Intelligence Agency</p>
+                    </div>
+                    <span class="crew-count">CP0-CP9</span>
+                </div>
+                <div class="characters-grid" id="cipherPolGrid"></div>
+            </div>
+
+            <!-- Kings & Queens -->
+            <div class="crew-group" data-crew="royalty">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon emperors-bg">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Kings & Royalty</h3>
+                        <p>Rulers of Various Kingdoms</p>
+                    </div>
+                    <span class="crew-count">Royalty</span>
+                </div>
+                <div class="characters-grid" id="royaltyGrid"></div>
+            </div>
+
+            <!-- Bounty Hunters -->
+            <div class="crew-group" data-crew="bounty-hunters">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon warlords-bg">
+                        <i class="fas fa-search-dollar"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Bounty Hunters</h3>
+                        <p>Professional Bounty Hunters</p>
+                    </div>
+                    <span class="crew-count">Hunters</span>
+                </div>
+                <div class="characters-grid" id="bountyHuntersGrid"></div>
+            </div>
+
+            <!-- Other Characters -->
+            <div class="crew-group" data-crew="others">
+                <div class="crew-group-header">
+                    <div class="crew-group-icon other-bg">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="crew-group-info">
+                        <h3>Other Characters</h3>
+                        <p>Islands, Scientists, and Misc</p>
+                    </div>
+                    <span class="crew-count">Misc</span>
+                </div>
+                <div class="characters-grid" id="othersGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Character Detail Modal -->
+    <div class="modal" id="characterModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body" id="modalBody">
+                <!-- Character details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-skull-crossbones"></i>
+                    <span>One Piece</span>
+                </div>
+                <p class="footer-text">Created with <i class="fas fa-heart"></i> for One Piece Fans</p>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#pirates">Pirates</a>
+                    <a href="#marines">Marines</a>
+                    <a href="#others">Others</a>
+                </div>
+                <p class="copyright">© 2024 One Piece Encyclopedia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece Admin | Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Pirata+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <!-- Login Gate -->
+    <div class="login-gate" id="loginGate">
+        <div class="login-box">
+            <div class="login-logo">
+                <i class="fas fa-skull-crossbones"></i>
+                <h1>One Piece Admin</h1>
+            </div>
+            <p class="login-subtitle">Enter the Grand Line</p>
+            <form id="loginForm">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Username" value="admin" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" value="luffy" required>
+                </div>
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-anchor"></i> Login
+                </button>
+            </form>
+            <a href="index.html" class="back-site-link"><i class="fas fa-arrow-left"></i> Back to Encyclopedia</a>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-wrapper" id="adminWrapper" style="display:none;">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-skull-crossbones"></i>
+                    <span>One Piece Admin</span>
+                </div>
+                <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Encyclopedia</a>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="nav-item" data-page="characters">
+                    <i class="fas fa-users"></i>
+                    <span>Characters</span>
+                </li>
+                <li class="nav-item" data-page="analytics">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Analytics</span>
+                </li>
+                <li class="nav-item" data-page="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar"><i class="fas fa-user-shield"></i></div>
+                    <span>Pirate King Admin</span>
+                </div>
+                <button class="toggle-btn" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <i class="fas fa-compass"></i>
+                    <span>Grand Line Management</span>
+                </div>
+                <div class="header-right">
+                    <button class="header-btn" onclick="logout()" title="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Page -->
+            <div class="page active" id="dashboard">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Welcome back, Pirate King!</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card gold">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h3 id="totalCharacters">0</h3>
+                            <span>Total Characters</span>
+                        </div>
+                    </div>
+                    <div class="stat-card red">
+                        <i class="fas fa-jolly-roger"></i>
+                        <div>
+                            <h3 id="totalPirates">0</h3>
+                            <span>Pirates</span>
+                        </div>
+                    </div>
+                    <div class="stat-card blue">
+                        <i class="fas fa-anchor"></i>
+                        <div>
+                            <h3 id="totalMarines">0</h3>
+                            <span>Marines</span>
+                        </div>
+                    </div>
+                    <div class="stat-card purple">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <h3 id="totalOthers">0</h3>
+                            <span>Others</span>
+                        </div>
+                    </div>
+                    <div class="stat-card green">
+                        <i class="fas fa-coins"></i>
+                        <div>
+                            <h3 id="avgBounty">0</h3>
+                            <span>Avg Bounty</span>
+                        </div>
+                    </div>
+                    <div class="stat-card orange">
+                        <i class="fas fa-apple-alt"></i>
+                        <div>
+                            <h3 id="devilFruitCount">0</h3>
+                            <span>Devil Fruit Users</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="recent-section">
+                        <h4><i class="fas fa-crown"></i> Top Bounties</h4>
+                        <div id="topBountiesList"></div>
+                    </div>
+                    <div class="quick-stats">
+                        <h4><i class="fas fa-info-circle"></i> Quick Facts</h4>
+                        <div class="stat-pills">
+                            <span><i class="fas fa-ship"></i> <strong id="crewCount">0</strong> Crews</span>
+                            <span><i class="fas fa-star"></i> <strong id="emperorCount">0</strong> Emperors</span>
+                            <span><i class="fas fa-medal"></i> <strong id="admiralCount">0</strong> Admirals</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Characters Page -->
+            <div class="page" id="characters">
+                <div class="page-header">
+                    <h1>Characters</h1>
+                    <div class="header-actions">
+                        <input type="text" id="characterSearch" class="search-input" placeholder="Search characters...">
+                        <button class="btn-primary" id="addCharacterBtn">
+                            <i class="fas fa-plus"></i> Add Character
+                        </button>
+                        <button class="btn-secondary" onclick="exportCharacters()">
+                            <i class="fas fa-file-export"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="charactersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Epithet</th>
+                                <th>Crew</th>
+                                <th>Group</th>
+                                <th>Rank</th>
+                                <th>Bounty</th>
+                                <th>Devil Fruit</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Analytics Page -->
+            <div class="page" id="analytics">
+                <div class="page-header">
+                    <h1>Analytics</h1>
+                    <p>Grand Line Intelligence Reports</p>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h4><i class="fas fa-users"></i> Characters by Group</h4>
+                        <canvas id="groupChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h4><i class="fas fa-coins"></i> Top 10 Bounties</h4>
+                        <canvas id="bountyChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h4><i class="fas fa-apple-alt"></i> Devil Fruit Distribution</h4>
+                        <canvas id="fruitChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div class="page" id="settings">
+                <div class="page-header">
+                    <h1>Settings</h1>
+                </div>
+                <div class="settings-grid">
+                    <div class="setting-card">
+                        <h4><i class="fas fa-sign-out-alt"></i> Logout</h4>
+                        <p>End your admin session</p>
+                        <button class="btn-secondary" onclick="logout()">Logout</button>
+                    </div>
+                    <div class="setting-card danger">
+                        <h4><i class="fas fa-trash-alt"></i> Reset Data</h4>
+                        <p>Restore all characters to default data</p>
+                        <button class="btn-danger" onclick="resetData()">Reset to Default</button>
+                    </div>
+                    <div class="setting-card">
+                        <h4><i class="fas fa-database"></i> Storage Info</h4>
+                        <p id="storageInfo">Calculating...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Character Modal -->
+    <div class="modal" id="characterModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header-bar">
+                <h2 id="characterModalTitle">Add Character</h2>
+                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="characterForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="charName" placeholder="Character Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Epithet / Pirate Name</label>
+                        <input type="text" id="charPirateName" placeholder='"Straw Hat" Luffy'>
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <input type="text" id="charRole" placeholder="Captain, Admiral, etc." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Crew / Organization</label>
+                        <input type="text" id="charCrew" placeholder="Straw Hat Pirates" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Group</label>
+                        <select id="charGroup" required>
+                            <option value="">Select Group</option>
+                            <option value="four-emperors">Four Emperors</option>
+                            <option value="straw-hat">Straw Hat Pirates</option>
+                            <option value="big-mom">Big Mom Pirates</option>
+                            <option value="beast">Beast Pirates</option>
+                            <option value="red-hair">Red-Haired Pirates</option>
+                            <option value="blackbeard">Blackbeard Pirates</option>
+                            <option value="kid">Kid Pirates</option>
+                            <option value="heart">Heart Pirates</option>
+                            <option value="roger">Roger Pirates</option>
+                            <option value="whitebeard">Whitebeard Pirates</option>
+                            <option value="seven-warlords">Seven Warlords</option>
+                            <option value="super-novas">Super Novas</option>
+                            <option value="other-pirates">Other Pirates</option>
+                            <option value="fleet-admiral">Fleet Admiral</option>
+                            <option value="admirals">Admirals</option>
+                            <option value="former-admirals">Former Admirals</option>
+                            <option value="vice-admirals">Vice Admirals</option>
+                            <option value="captains">Marine Captains</option>
+                            <option value="marine-others">Other Marines</option>
+                            <option value="five-elders">Five Elders</option>
+                            <option value="revolutionaries">Revolutionaries</option>
+                            <option value="gods">Ancient Gods & Mythical</option>
+                            <option value="ancient">Ancient Kingdom</option>
+                            <option value="holy-knights">Holy Knights</option>
+                            <option value="world-government">World Government</option>
+                            <option value="cipher-pol">Cipher Pol</option>
+                            <option value="royalty">Kings & Royalty</option>
+                            <option value="bounty-hunters">Bounty Hunters</option>
+                            <option value="others">Other Characters</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Rank</label>
+                        <input type="text" id="charRank" placeholder="Captain, Commander, etc." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Bounty</label>
+                        <input type="text" id="charBounty" placeholder="3,000,000,000 or N/A">
+                    </div>
+                    <div class="form-group">
+                        <label>Devil Fruit</label>
+                        <input type="text" id="charDevilFruit" placeholder="Gomu Gomu no Mi or None">
+                    </div>
+                    <div class="form-group">
+                        <label>Ability</label>
+                        <input type="text" id="charAbility" placeholder="Rubber Body" required>
+                    </div>
+                    <div class="form-group">
+                        <label>First Appearance</label>
+                        <input type="text" id="charFirstAppearance" placeholder="Chapter 1">
+                    </div>
+                    <div class="form-group full">
+                        <label>Image URL</label>
+                        <input type="url" id="charImage" placeholder="https://example.com/image.jpg (optional)">
+                    </div>
+                </div>
+                <div class="form-group full">
+                    <label>Description</label>
+                    <textarea id="charDescription" placeholder="Character description..." rows="3" required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Save Character</button>
+                    <button type="button" class="btn-secondary" id="cancelCharacter">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>
+

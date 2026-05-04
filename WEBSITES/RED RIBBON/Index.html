@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Ribbon - Premium Cakes & Pastries</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="nav">
+        <nav class="nav-bar">
+            <div class="nav-container">
+                <a href="#home"><h1 class="logo">
+                    <span>Red</span>Ribbon
+                </h1></a>
+                <div class="nav-menu">
+                    <a href="#home">Home</a>
+                    <a href="#product">Products</a>
+                    <a href="#contact">Contact</a>
+                    <a class="nav-link nav-cart-btn" onclick="openCart()">
+                        <i class="fas fa-shopping-cart"></i> Cart 
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="Name">
+                <h1><span>Red</span>Ribbon</h1>
+                <p>Give Love Today with our premium cakes & pastries for every celebration</p>
+                <a href="#product" class="cta-btn">
+                    <i class="fas fa-shopping-bag"></i> Order Now
+                </a>
+            </div>
+            <div class="hero-image animate-fade-in">
+                <img src="images/hero-redribbon.png" alt="Red Ribbon Celebration Cakes" onerror="this.src='https://via.placeholder.com/500x400/c41e3a/fff?text=Red+Ribbon+Cakes'">
+            </div>
+        </div>
+    </section>
+
+    <section id="product" class="product">
+        <div class="product-container">
+            <h1>Our Signature Cakes</h1>
+            <p class="des">Celebrate every moment with delicious perfection</p>
+            <div class="product-cards" id="productCards">
+                <div class="product-card" data-id="0">
+                    <img src="images/black-forest.jpg" alt="Black Forest" onerror="this.src='https://via.placeholder.com/300x250/c41e3a/fff?text=Black+Forest'">
+                    <h3>Black Forest</h3>
+                    <p>Chocolate sponge, cherries & fresh cream</p>
+                    <span class="price">₱850</span>
+                    <button class="add-to-cart-btn" onclick="addToCartFromCard(0)"><i class="fas fa-cart-plus"></i> Add</button>
+                </div>
+                <div class="product-card" data-id="1">
+                    <img src="images/choco-indulgence.jpg" alt="Choco Indulgence" onerror="this.src='https://via.placeholder.com/300x250/8b4513/fff?text=Choco+Indulgence'">
+                    <h3>Choco Indulgence</h3>
+                    <p>Decadent chocolate ganache layers</p>
+                    <span class="price">₱750</span>
+                    <button class="add-to-cart-btn" onclick="addToCartFromCard(1)"><i class="fas fa-cart-plus"></i> Add</button>
+                </div>
+                <div class="product-card" data-id="2">
+                    <img src="images/mango-supreme.jpg" alt="Mango Supreme" onerror="this.src='https://via.placeholder.com/300x250/ffeb3b/000?text=Mango+Supreme'">
+                    <h3>Mango Supreme</h3>
+                    <p>Fresh mangoes & white chocolate mousse</p>
+                    <span class="price">₱900</span>
+                    <button class="add-to-cart-btn" onclick="addToCartFromCard(2)"><i class="fas fa-cart-plus"></i> Add</button>
+                </div>
+                <div class="product-card" data-id="3">
+                    <img src="images/ube-macapuno.jpg" alt="Ube Macapuno" onerror="this.src='https://via.placeholder.com/300x250/8e44ad/fff?text=Ube+Macapuno'">
+                    <h3>Ube Macapuno</h3>
+                    <p>Purple yam & sweet coconut strings</p>
+                    <span class="price">₱800</span>
+                    <button class="add-to-cart-btn" onclick="addToCartFromCard(3)"><i class="fas fa-cart-plus"></i> Add</button>
+                </div>
+                <div class="product-card" data-id="4">
+                    <img src="images/red-velvet.jpg" alt="Red Velvet" onerror="this.src='https://via.placeholder.com/300x250/c41e3a/fff?text=Red+Velvet'">
+                    <h3>Red Velvet</h3>
+                    <p>Velvety layers & cream cheese frosting</p>
+                    <span class="price">₱950</span>
+                    <button class="add-to-cart-btn" onclick="addToCartFromCard(4)"><i class="fas fa-cart-plus"></i> Add</button>
+                </div>
+                <div class="product-card" data-id="5">
+                    <img src="images/sansrival.jpg" alt="Sans Rival" onerror="this.src='https://via.placeholder.com/300x250/f39c12/fff?text=Sans+Rival'">
+                    <h3>Sans Rival</h3>
+                    <p>Crunchy meringue & buttercream layers</p>
+                    <span class="price">₱700</span>
+                    <button class="add-to-cart-btn" onclick="addToCartFromCard(5)"><i class="fas fa-cart-plus"></i> Add</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title animate-slide-up">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info animate-slide-up">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Our Branches</h3>
+                            <p>SM Megamall, Ortigas, Mandaluyong City, Philippines</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Call Us</h3>
+                            <p>+63 (2) 8634-1111</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email Us</h3>
+                            <p>orders@redribbon.com</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form animate-slide-up" id="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+            <div class="map-container animate-fade-in">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.9!2d121.0265!3d14.5848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c9ca7b3b7d1d%3A0x2d4d7b5b5e7b5b5b!2sSM%20Megamall!5e0!3m2!1sen!2sph!4v1720000000000" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3><span>Red</span>Ribbon</h3>
+                    <p>Give Love Today. Celebrate Every Moment.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/redribbon"><i class="fab fa-facebook"></i></a>
+                        <a href="https://instagram.com/redribbonph"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#product">Cakes</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Branches</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Red Ribbon. All rights reserved. Made with ❤️ for cake lovers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Detail Modal -->
+    <div class="detail-modal">
+        <div class="modal-content product-detail-content">
+            <span class="modal-close" onclick="closeProductModal()">&times;</span>
+            <div>
+                <img id="product-main-img" src="" alt="">
+                <div class="product-thumbs" id="product-thumbs"></div>
+            </div>
+            <div class="product-info">
+                <h2 id="product-name"></h2>
+                <div class="product-price" id="product-price"></div>
+                <div class="product-category" id="product-category"></div>
+                <div id="product-description"></div>
+                <div class="product-qty">
+                    <button onclick="changeProductQty(-1)">-</button>
+                    <input id="product-qty" type="number" value="1" min="1">
+                    <button onclick="changeProductQty(1)">+</button>
+                </div>
+                <button class="add-to-cart-btn-large" onclick="addToCartFromDetail()">
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+        <div class="modal-content">
+            <div class="cart-header">
+                <h2><i class="fas fa-shopping-cart"></i> Your Cart</h2>
+                <span class="close-cart" onclick="closeCart()">&times;</span>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-total-section">
+                <div class="cart-subtotal">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">₱0</span>
+                </div>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">₱0</span>
+                </div>
+            </div>
+            <div class="cart-actions">
+                <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+                <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="checkout-modal">
+        <div class="modal-content checkout-content">
+            <div class="cart-header">
+                <h2><i class="fas fa-credit-card"></i> Checkout</h2>
+                <span class="close-cart" onclick="closeCheckout()">&times;</span>
+            </div>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Delivery Address" required>
+                </div>
+                <div class="form-group">
+                    <select required>
+                        <option value="">Payment Method</option>
+                        <option>GCash</option>
+                        <option>COD</option>
+                        <option>Credit Card</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="checkout-promo" placeholder="Promo Code (LOVE20)">
+                    <button type="button" class="promo-btn" onclick="applyPromo()">Apply</button>
+                    <span id="promo-result" style="color: green;"></span>
+                </div>
+                <div class="checkout-total">
+                    <h3 id="checkout-total">₱0</h3>
+                </div>
+                <button type="submit" class="place-order-btn">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="auth-modal">
+        <div class="modal-content auth-content">
+            <div class="cart-header">
+                <h2><i class="fas fa-user"></i> Account</h2>
+                <span class="close-cart" onclick="closeAuth()">&times;</span>
+            </div>
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+                <button class="tab-btn" onclick="switchTab('register')">Register</button>
+            </div>
+            <form id="login-form" class="auth-form">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <form id="register-form" class="auth-form" style="display:none;">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

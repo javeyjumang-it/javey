@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPA Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<section id="loginPage" class="page">
+  <div class="login-box glass">
+    <h2>Login</h2>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="loginError"></p>
+  </div>
+</section>
+
+<!-- DASHBOARD APP -->
+<section id="appPage" class="hidden">
+
+  <!-- Sidebar -->
+  <aside class="sidebar glass" id="sidebar">
+    <h2>Dashboard</h2>
+    <ul>
+      <li onclick="navigate('dashboard')">📊 Dashboard</li>
+      <li onclick="navigate('users')">👥 Users</li>
+      <li onclick="navigate('analytics')">📈 Analytics</li>
+      <li onclick="navigate('activity')">📋 Activity Log</li>
+      <li onclick="navigate('settings')">⚙️ Settings</li>
+    </ul>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+
+    <header class="topbar glass">
+      <button onclick="toggleSidebar()">☰</button>
+      <input id="searchInput" placeholder="Search users...">
+      <div class="topbar-widgets">
+        <span id="clock" class="clock"></span>
+        <div class="notification-bell" onclick="toggleNotifications()">
+          🔔
+          <span id="notifBadge" class="badge">0</span>
+          <div id="notifDropdown" class="dropdown hidden">
+            <p>No new notifications</p>
+          </div>
+        </div>
+        <button onclick="toggleDark()">🌙</button>
+        <button onclick="logout()">Logout</button>
+      </div>
+    </header>
+
+    <!-- ROUTES -->
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="route">
+      <h2>Overview</h2>
+
+      <div class="cards">
+        <!-- Card 1: Total Users -->
+        <div class="card glass">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Total Users</div>
+              <div class="card-value" id="usersCount">0</div>
+            </div>
+            <div class="progress-ring" data-percent="78">
+              <svg viewBox="0 0 36 36">
+                <path class="progress-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path class="progress-ring-fill" stroke-dasharray="78, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+              <span class="progress-text">78%</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="ratio-badge positive">+12% vs last month</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Revenue -->
+        <div class="card glass">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Revenue</div>
+              <div class="card-value" id="revenueValue">$12,300</div>
+            </div>
+            <div class="progress-ring" data-percent="65">
+              <svg viewBox="0 0 36 36">
+                <path class="progress-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path class="progress-ring-fill" stroke-dasharray="65, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+              <span class="progress-text">65%</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="ratio-badge positive">+8.4% vs last month</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Orders -->
+        <div class="card glass">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Orders</div>
+              <div class="card-value" id="ordersValue">320</div>
+            </div>
+            <div class="progress-ring" data-percent="82">
+              <svg viewBox="0 0 36 36">
+                <path class="progress-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path class="progress-ring-fill" stroke-dasharray="82, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+              <span class="progress-text">82%</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="ratio-badge positive">+24 vs yesterday</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Performance -->
+        <div class="card glass">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Performance</div>
+              <div class="card-value positive">+12%</div>
+            </div>
+            <div class="progress-ring" data-percent="92">
+              <svg viewBox="0 0 36 36">
+                <path class="progress-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path class="progress-ring-fill" stroke-dasharray="92, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+              <span class="progress-text">92%</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="ratio-badge positive">Exceeding target</span>
+          </div>
+        </div>
+
+        <!-- Card 5: Active Sessions -->
+        <div class="card glass">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Active Sessions</div>
+              <div class="card-value" id="activeSessions">142</div>
+            </div>
+            <div class="live-indicator">
+              <span class="live-dot"></span>
+              <span class="live-text">LIVE</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="progress-bar-container">
+              <div class="progress-bar" style="width: 60%"></div>
+            </div>
+            <span class="ratio-badge">60% capacity</span>
+          </div>
+        </div>
+
+        <!-- Card 6: Customer Satisfaction -->
+        <div class="card glass">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Customer Satisfaction</div>
+              <div class="card-value" id="satisfactionValue">4.8</div>
+            </div>
+            <div class="star-rating">⭐⭐⭐⭐⭐</div>
+          </div>
+          <div class="card-footer">
+            <span class="ratio-badge positive">96% positive</span>
+          </div>
+        </div>
+
+        <!-- Card 7: Conversion Rate -->
+        <div class="card glass">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Conversion Rate</div>
+              <div class="card-value" id="conversionValue">3.2%</div>
+            </div>
+            <div class="progress-ring" data-percent="64">
+              <svg viewBox="0 0 36 36">
+                <path class="progress-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path class="progress-ring-fill" stroke-dasharray="64, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+              <span class="progress-text">64%</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="ratio-badge positive">+0.4% vs last week</span>
+          </div>
+        </div>
+
+        <!-- Card 8: Tasks Completed -->
+        <div class="card glass">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Tasks Completed</div>
+              <div class="card-value" id="tasksValue">87/120</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="progress-bar-container">
+              <div class="progress-bar" style="width: 72.5%"></div>
+            </div>
+            <span class="ratio-badge">72.5% done</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="charts-row">
+        <div class="chart-container glass">
+          <h3 class="chart-title">Weekly Revenue</h3>
+          <canvas id="chart"></canvas>
+        </div>
+        <div class="chart-container glass doughnut-container">
+          <h3 class="chart-title">Category Distribution</h3>
+          <canvas id="doughnutChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Ratio Summary Row -->
+      <div class="ratio-summary glass">
+        <div class="ratio-item">
+          <span class="ratio-label">Active / Total Users</span>
+          <span class="ratio-value" id="activeRatio">2 / 3</span>
+        </div>
+        <div class="ratio-item">
+          <span class="ratio-label">Revenue / Target</span>
+          <span class="ratio-value" id="revenueRatio">$12.3k / $20k</span>
+        </div>
+        <div class="ratio-item">
+          <span class="ratio-label">Orders / Goal</span>
+          <span class="ratio-value" id="ordersRatio">320 / 400</span>
+        </div>
+        <div class="ratio-item">
+          <span class="ratio-label">Tasks / Total</span>
+          <span class="ratio-value" id="tasksRatio">87 / 120</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Users -->
+    <section id="users" class="route hidden">
+      <div class="section-header">
+        <h2>Users</h2>
+        <button class="btn-primary" onclick="openModal()">+ Add User</button>
+        <button class="btn-secondary" onclick="exportCSV()">📥 Export CSV</button>
+      </div>
+      
+      <div id="userSkeleton" class="skeleton-table">
+        <div class="skeleton-row"></div>
+        <div class="skeleton-row"></div>
+        <div class="skeleton-row"></div>
+      </div>
+
+      <table id="userTableContainer" class="hidden">
+        <thead>
+          <tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+      </table>
+    </section>
+
+    <!-- Analytics -->
+    <section id="analytics" class="route hidden">
+      <h2>Analytics</h2>
+      <div class="cards">
+        <div class="card glass">
+          <div class="card-title">Avg. Session</div>
+          <div class="card-value">4m 32s</div>
+          <div class="card-footer">
+            <span class="ratio-badge positive">+18s vs last week</span>
+          </div>
+        </div>
+        <div class="card glass">
+          <div class="card-title">Bounce Rate</div>
+          <div class="card-value negative">42%</div>
+          <div class="card-footer">
+            <span class="ratio-badge negative">+2% vs last week</span>
+          </div>
+        </div>
+        <div class="card glass">
+          <div class="card-title">New Signups</div>
+          <div class="card-value">+28</div>
+          <div class="card-footer">
+            <span class="ratio-badge positive">+12% vs last week</span>
+          </div>
+        </div>
+        <div class="card glass">
+          <div class="card-title">Page Views</div>
+          <div class="card-value">45.2K</div>
+          <div class="card-footer">
+            <span class="ratio-badge positive">+5.3% vs last week</span>
+          </div>
+        </div>
+        <div class="card glass">
+          <div class="card-title">Conversion Rate</div>
+          <div class="card-value">3.2%</div>
+          <div class="card-footer">
+            <span class="ratio-badge positive">+0.4% vs last week</span>
+          </div>
+        </div>
+        <div class="card glass">
+          <div class="card-title">Return Visitors</div>
+          <div class="card-value">68%</div>
+          <div class="card-footer">
+            <span class="ratio-badge positive">+3% vs last week</span>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container glass">
+        <h3 class="chart-title">Monthly Traffic</h3>
+        <canvas id="analyticsChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Activity Log -->
+    <section id="activity" class="route hidden">
+      <h2>Activity Log</h2>
+      <div class="activity-list glass" id="activityList">
+        <p class="empty-state">No activities yet.</p>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section id="settings" class="route hidden">
+      <h2>Settings</h2>
+      <div class="settings-card glass">
+        <label class="toggle-label">
+          <span>Dark Mode</span>
+          <input type="checkbox" id="darkToggle" onchange="toggleDark()">
+          <span class="toggle-switch"></span>
+        </label>
+        <label class="toggle-label">
+          <span>Email Notifications</span>
+          <input type="checkbox" checked>
+          <span class="toggle-switch"></span>
+        </label>
+        <label class="toggle-label">
+          <span>Auto-save</span>
+          <input type="checkbox" checked>
+          <span class="toggle-switch"></span>
+        </label>
+      </div>
+    </section>
+
+  </div>
+</section>
+
+<!-- USER MODAL -->
+<div id="userModal" class="modal hidden">
+  <div class="modal-content glass">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h3 id="modalTitle">Add User</h3>
+    <form id="userForm" onsubmit="event.preventDefault(); saveUser();">
+      <input type="hidden" id="userId">
+      <label>Name</label>
+      <input type="text" id="userName" required placeholder="Enter name">
+      <label>Email</label>
+      <input type="email" id="userEmail" required placeholder="Enter email">
+      <label>Role</label>
+      <select id="userRole">
+        <option value="Admin">Admin</option>
+        <option value="Editor">Editor</option>
+        <option value="User">User</option>
+      </select>
+      <label>Status</label>
+      <select id="userStatus">
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+      </select>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toastContainer" class="toast-container"></div>
+
+<!-- CARD ZOOM OVERLAY -->
+<div id="cardOverlay" class="card-overlay hidden" onclick="closeZoomedCard()"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
+

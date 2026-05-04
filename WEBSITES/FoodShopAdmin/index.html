@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodShop - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-utensils"></i> FoodShop Admin</h2>
+                <a href="../KARENDERYA/index.html" class="back-link"><i class="fas fa-arrow-left"></i> Customer View</a>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="nav-item" data-page="orders">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Orders</span>
+                </li>
+                <li class="nav-item" data-page="menu">
+                    <i class="fas fa-drumstick-bite"></i>
+                    <span>Menu Items</span>
+                </li>
+                <li class="nav-item" data-page="customers">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </li>
+                <li class="nav-item" data-page="inventory">
+                    <i class="fas fa-boxes"></i>
+                    <span>Inventory</span>
+                </li>
+                <li class="nav-item" data-page="analytics">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Sales Analytics</span>
+                </li>
+                <li class="nav-item" data-page="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/40?text=FS" alt="Admin">
+                    <span>Food Admin</span>
+                </div>
+                <button class="toggle-btn" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <i class="fas fa-utensils"></i>
+                    <span>Food Shop Management</span>
+                </div>
+                <div class="header-right">
+                    <i class="fas fa-search"></i>
+                    <select>
+                        <option>EN</option>
+                    </select>
+                </div>
+            </header>
+
+            <!-- Dashboard -->
+            <div class="page active" id="dashboard">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Welcome to FoodShop Admin!</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-shopping-bag"></i>
+                        <div>
+                            <h3 id="totalOrders">0</h3>
+                            <span>Orders</span>
+                            <button class="copy-btn" data-copy="totalOrders" title="Copy"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-peso-sign"></i>
+                        <div>
+                            <h3 id="revenue">₱0</h3>
+                            <span>Revenue</span>
+                            <button class="copy-btn" data-copy="revenue" title="Copy"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                            <div>
+                            <h3 id="customers">0</h3>
+                            <span>Customers</span>
+                            <button class="copy-btn" data-copy="customers" title="Copy"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-drumstick-bite"></i>
+                        <div>
+                            <h3 id="itemsSold">0</h3>
+                            <span>Items Sold</span>
+                            <button class="copy-btn" data-copy="itemsSold" title="Copy"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="recent-orders">
+                        <h4>Recent Orders</h4>
+                        <div id="recentOrdersList">
+                            <!-- JS populated -->
+                        </div>
+                    </div>
+                    <div class="quick-stats">
+                        <h4>Quick Stats</h4>
+                        <div class="stat-pills">
+                            <span>Avg Order: ₱250</span>
+                            <span>Repeat: 35%</span>
+                            <span>Peak Hour: 12-2 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Page -->
+            <div class="page" id="orders">
+                <div class="page-header">
+                    <h1>Orders</h1>
+                    <input type="text" id="orderSearch" placeholder="Search orders...">
+                    <button class="btn-primary" onclick="exportOrders()">Export CSV</button>
+                </div>
+                <div class="table-container">
+                    <table id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- JS populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Menu Items Page -->
+            <div class="page" id="menu">
+                <div class="page-header">
+                    <h1>Menu Items</h1>
+                    <button class="btn-primary" id="addMenuBtn">Add Item</button>
+                </div>
+                <div class="menu-grid" id="menuList">
+                    <!-- JS populated -->
+                </div>
+            </div>
+
+            <!-- Customers Page -->
+            <div class="page" id="customers">
+                <div class="page-header">
+                    <h1>Customers</h1>
+                    <input type="text" id="customerSearch" placeholder="Search customers...">
+                    <button class="btn-primary" id="addCustomerBtn">Add Customer</button>
+                </div>
+                <div class="users-list" id="customersList">
+                    <!-- JS populated -->
+                </div>
+            </div>
+
+            <!-- Inventory Page -->
+            <div class="page" id="inventory">
+                <div class="page-header">
+                    <h1>Inventory</h1>
+                    <input type="text" id="inventorySearch" placeholder="Search inventory...">
+                </div>
+                <div class="table-container">
+                    <table id="inventoryTable">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Stock</th>
+                                <th>Low Stock Threshold</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- JS populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Analytics Page -->
+            <div class="page" id="analytics">
+                <div class="page-header">
+                    <h1>Sales Analytics</h1>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h4>Orders Trend</h4>
+                        <canvas id="ordersChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h4>Top Items</h4>
+                        <canvas id="itemsChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h4>Revenue by Day</h4>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div class="page" id="settings">
+                <div class="page-header">
+                    <h1>Settings</h1>
+                </div>
+                <div class="settings-grid">
+                    <div class="setting-card">
+                        <h4>Logout</h4>
+                        <button class="btn-secondary" onclick="logout()">Logout</button>
+                    </div>
+                    <div class="setting-card">
+                        <h4>Clear Data</h4>
+                        <button class="btn-danger" onclick="clearDemoData()">Clear Demo Data</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Menu Item Modal -->
+    <div class="modal" id="menuModal">
+        <div class="modal-content">
+            <h2 id="menuModalTitle">Add Menu Item</h2>
+            <form id="menuForm">
+                <input type="text" id="menuName" placeholder="Item Name" required>
+                <input type="number" id="menuPrice" placeholder="Price (₱)" step="0.01" required>
+                <input type="url" id="menuImage" placeholder="Image URL">
+                <textarea id="menuDesc" placeholder="Description"></textarea>
+                <button type="submit">Save Item</button>
+                <button type="button" id="cancelMenu">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Customer Modal -->
+    <div class="modal" id="customerModal">
+        <div class="modal-content">
+            <h2 id="customerModalTitle">Add Customer</h2>
+            <form id="customerForm">
+                <input type="text" id="customerName" placeholder="Full Name" required>
+                <input type="email" id="customerEmail" placeholder="Email" required>
+                <input type="tel" id="customerPhone" placeholder="Phone">
+                <button type="submit">Save Customer</button>
+                <button type="button" id="cancelCustomer">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

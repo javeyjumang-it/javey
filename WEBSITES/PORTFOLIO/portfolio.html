@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 11 Portfolio</title>
+    <link rel="stylesheet" href="portfolio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+
+
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Desktop -->
+    <div class="desktop">
+        <div class="desktop-icon" data-section="about" draggable="true">
+            <div class="icon-img">A
+            </div>
+            <span>About</span>
+        </div>
+        <div class="desktop-icon" data-section="projects" draggable="true">
+            <div class="icon-img">P
+            </div>
+            <span>Projects</span>
+        </div>
+        <div class="desktop-icon" data-section="resume" draggable="true">
+            <div class="icon-img">R
+            </div>
+            <span>Resume</span>
+        </div>
+        <div class="desktop-icon" data-section="blog" draggable="true">
+            <div class="icon-img">B
+            </div>
+            <span>Blog</span>
+        </div>
+        <div class="desktop-icon" data-section="gallery" draggable="true">
+            <div class="icon-img">G
+            </div>
+            <span>Gallery</span>
+        </div>
+        <div class="desktop-icon" data-section="contact" draggable="true">
+            <div class="icon-img">C
+            </div>
+            <span>Contact</span>
+        </div>
+    </div>
+
+    <!-- Main Portfolio Window -->
+    <div class="window" id="portfolio-window">
+        <div class="title-bar">
+            <span>My Portfolio</span>
+            <div class="window-controls">
+                <button class="minimize">_</button>
+                <button class="maximize">□</button>
+                <button class="close">×</button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="sidebar">
+                <div class="nav-item active" data-section="about">
+                    About
+                </div>
+                <div class="nav-item" data-section="projects">
+                    Projects
+                </div>
+                <div class="nav-item" data-section="resume">
+                    Resume
+                </div>
+                <div class="nav-item" data-section="blog">
+                    Blog
+                </div>
+                <div class="nav-item" data-section="gallery">
+                    Gallery
+                </div>
+                <div class="nav-item" data-section="contact">
+                    Contact
+                </div>
+            </div>
+            <div class="content-area">
+                <!-- About Section -->
+                <div id="about" class="section">
+                    <h1>Professional Profile</h1>
+                    <div class="professional-intro">
+                        <h2>Front-end Developer & UI/UX Desinger</h2>
+                        <p>Experienced software engineer specializing in modern web technologies and scalable application development. Committed to delivering high-quality solutions that combine technical excellence with exceptional user experiences.</p>
+                        <div class="key-highlights">
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🚀</span>
+                                <span>6+ Years of Development Experience</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">💡</span>
+                                <span>Innovative Problem Solver</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🎯</span>
+                                <span>Results-Driven Approach</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="typing-text">
+                        <span id="typed-text"></span><span class="cursor">|</span>
+                    </div>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <h3>Frontend Development</h3>
+                            <p>React, Vue.js, Angular, TypeScript, JavaScript (ES6+), HTML5, CSS3, Sass/SCSS</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3>Backend Development</h3>
+                            <p>Node.js, Python, Express.js, Django, REST APIs, GraphQL, Microservices</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3>DevOps & Tools</h3>
+                            <p>Docker, AWS, Git, CI/CD, Jenkins, Kubernetes, MongoDB, PostgreSQL</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3>Design & UX</h3>
+                            <p>Figma, Adobe XD, UI/UX Design, Responsive Design, Accessibility, Performance Optimization</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Section -->
+                <div id="projects" class="section hidden">
+                    <h1>My Projects</h1>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <h3>Calculator</h3>
+                            <p>A fully functional calculator with basic arithmetic operations and a clean, modern interface.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript</div>
+                            <a href="../PROJECTS/Calculator/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>Currency Converter</h3>
+                            <p>Real-time currency conversion tool with live exchange rates and multiple currency support.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript • API</div>
+                            <a href="../PROJECTS/Currency Converter/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>Expense Tracker</h3>
+                            <p>Track your income and expenses with visual charts and budget management features.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript • Chart.js</div>
+                            <a href="../PROJECTS/Expense Tracker/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>GitHub Finder</h3>
+                            <p>Search and explore GitHub users and repositories with detailed profile information.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript • GitHub API</div>
+                            <a href="../PROJECTS/Github Finder/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>Password Generator</h3>
+                            <p>Generate secure passwords with customizable options for length and character types.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript</div>
+                            <a href="../PROJECTS/Password Generator/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>Quiz Game</h3>
+                            <p>Interactive quiz application with multiple categories and scoring system.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript</div>
+                            <a href="../PROJECTS/Quiz Game/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>Recipe Finder</h3>
+                            <p>Search for recipes using ingredients with detailed cooking instructions and nutrition info.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript • Recipe API</div>
+                            <a href="../PROJECTS/Recipe Finder/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>TODO App</h3>
+                            <p>Task management application with local storage, drag-and-drop, and filtering options.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript • Local Storage</div>
+                            <a href="../PROJECTS/TODO app/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>Interactive Map</h3>
+                            <p>Interactive map with markers, search functionality, and location-based features.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript • Maps API</div>
+                            <a href="../PROJECTS/Interactive Map/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>Bookmark Saver</h3>
+                            <p>Save and organize your favorite websites with categories and search functionality.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript • Local Storage</div>
+                            <a href="../PROJECTS/Bookmark Saver/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>Contact Form</h3>
+                            <p>Responsive contact form with validation and modern design.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript</div>
+                            <a href="../PROJECTS/Contact Form/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>Image Slider</h3>
+                            <p>Beautiful image carousel with smooth transitions and navigation controls.</p>
+                            <div class="tech-stack">HTML • CSS • JavaScript</div>
+                            <a href="../PROJECTS/SLIDER/index.html" target="_blank" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resume Section -->
+                <div id="resume" class="section hidden">
+                    <h1>Professional Experience</h1>
+                    <div class="professional-summary">
+                        <p>Results-driven Full-Stack Developer with 6+ years of experience in building scalable web applications. Proven track record of leading development teams, implementing cutting-edge technologies, and delivering high-impact solutions that drive business growth and user engagement.</p>
+                    </div>
+                    <div class="resume-content">
+                        <div class="resume-section">
+                            <h2>Professional Experience</h2>
+                            <div class="job">
+                                <h3>Senior Full-Stack Developer</h3>
+                                <p>Tech Innovations Inc. • 2021-Present</p>
+                                <ul>
+                                    <li>Led development of scalable web applications serving 100K+ users</li>
+                                    <li>Mentored 5 junior developers and conducted code reviews</li>
+                                    <li>Implemented CI/CD pipelines reducing deployment time by 60%</li>
+                                    <li>Architected microservices infrastructure using Docker and Kubernetes</li>
+                                    <li>Collaborated with UX/UI team to improve user engagement by 40%</li>
+                                </ul>
+                            </div>
+                            <div class="job">
+                                <h3>Frontend Developer</h3>
+                                <p>Digital Solutions Ltd. • 2019-2021</p>
+                                <ul>
+                                    <li>Developed responsive web applications using React and TypeScript</li>
+                                    <li>Optimized application performance resulting in 35% faster load times</li>
+                                    <li>Integrated RESTful APIs and third-party services</li>
+                                    <li>Implemented automated testing suites with Jest and Cypress</li>
+                                    <li>Contributed to open-source projects and technical blog posts</li>
+                                </ul>
+                            </div>
+                            <div class="job">
+                                <h3>Junior Web Developer</h3>
+                                <p>StartupTech • 2018-2019</p>
+                                <ul>
+                                    <li>Built dynamic websites using HTML, CSS, JavaScript, and PHP</li>
+                                    <li>Maintained and updated existing client websites</li>
+                                    <li>Collaborated with design team to implement pixel-perfect layouts</li>
+                                    <li>Learned version control with Git and agile development practices</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Education</h2>
+                            <div class="education">
+                                <h3>Bachelor of Science in Computer Science</h3>
+                                <p>State University • 2014-2018</p>
+                                <p>GPA: 3.8/4.0 • Magna Cum Laude</p>
+                                <p>Relevant Coursework: Data Structures, Algorithms, Web Development, Database Systems, Software Engineering</p>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills & Technologies</h2>
+                            <div class="skills-grid">
+                                <div class="skill-card">
+                                    <h3>Frontend</h3>
+                                    <p>React, Vue.js, Angular, TypeScript, JavaScript (ES6+), HTML5, CSS3, Sass/SCSS</p>
+                                </div>
+                                <div class="skill-card">
+                                    <h3>Backend</h3>
+                                    <p>Node.js, Python, PHP, Express.js, Django, REST APIs, GraphQL</p>
+                                </div>
+                                <div class="skill-card">
+                                    <h3>Database & Tools</h3>
+                                    <p>MongoDB, PostgreSQL, MySQL, Redis, Docker, AWS, Git, Jenkins</p>
+                                </div>
+                                <div class="skill-card">
+                                    <h3>Design & Other</h3>
+                                    <p>Figma, Adobe XD, UI/UX Design, Responsive Design, SEO, Performance Optimization</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Certifications</h2>
+                            <div class="job">
+                                <h3>AWS Certified Solutions Architect</h3>
+                                <p>Amazon Web Services • 2022</p>
+                            </div>
+                            <div class="job">
+                                <h3>Google Cloud Professional Developer</h3>
+                                <p>Google Cloud • 2021</p>
+                            </div>
+                            <div class="job">
+                                <h3>Certified Scrum Master</h3>
+                                <p>Scrum Alliance • 2020</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog Section -->
+                <div id="blog" class="section hidden">
+                    <h1>My Blog</h1>
+                    <div class="blog-posts">
+                        <article class="blog-post">
+                            <h2>Modern Web Development Trends in 2024</h2>
+                            <p class="post-date">January 15, 2024</p>
+                            <p>The web development landscape is constantly evolving, and 2024 brings exciting new technologies and approaches. From AI-powered development tools to edge computing and advanced CSS features, developers have more powerful tools than ever before.</p>
+                            <p>One of the most significant trends is the rise of AI-assisted coding. Tools like GitHub Copilot and ChatGPT are revolutionizing how developers write code, offering intelligent suggestions and automating repetitive tasks. While these tools enhance productivity, they also require developers to understand the code they generate.</p>
+                            <p>TypeScript continues its dominance, with more projects adopting it for better type safety and developer experience. The ecosystem around it has matured significantly, making it easier to build large-scale applications.</p>
+                            <p>Serverless architectures are becoming the norm for many applications, allowing developers to focus on business logic rather than infrastructure management. Combined with edge computing, this approach enables faster, more scalable applications.</p>
+                            <p>CSS has also seen major advancements with features like container queries, cascade layers, and improved grid layouts. These features allow for more sophisticated and responsive designs without relying heavily on JavaScript.</p>
+                            <div class="blog-tags">
+                                <span class="tag">Web Development</span>
+                                <span class="tag">AI</span>
+                                <span class="tag">TypeScript</span>
+                                <span class="tag">Serverless</span>
+                                <span class="tag">CSS</span>
+                            </div>
+                        </article>
+                        <article class="blog-post">
+                            <h2>Building Accessible Web Applications: A Comprehensive Guide</h2>
+                            <p class="post-date">December 20, 2023</p>
+                            <p>Web accessibility is not just a nice-to-have feature—it's essential for creating inclusive digital experiences. With over 1 billion people worldwide having some form of disability, ensuring your web applications are accessible means reaching a broader audience and providing better user experiences for everyone.</p>
+                            <p>The foundation of web accessibility lies in the WCAG (Web Content Accessibility Guidelines) standards. These guidelines provide a framework for making web content more accessible to people with disabilities, including visual, auditory, motor, and cognitive impairments.</p>
+                            <p>Semantic HTML is crucial for accessibility. Using proper heading hierarchy, landmark elements, and ARIA attributes helps screen readers and other assistive technologies understand and navigate your content effectively.</p>
+                            <p>Keyboard navigation is another critical aspect. All interactive elements should be accessible via keyboard, and the focus management should be logical and intuitive. This includes proper focus indicators and avoiding keyboard traps.</p>
+                            <p>Color contrast, readable fonts, and responsive design all contribute to better accessibility. Tools like WAVE, Lighthouse, and axe can help identify and fix accessibility issues during development.</p>
+                            <p>Remember, accessibility benefits everyone—not just users with disabilities. Better SEO, improved usability, and enhanced performance are just some of the additional advantages of building accessible web applications.</p>
+                            <div class="blog-tags">
+                                <span class="tag">Accessibility</span>
+                                <span class="tag">WCAG</span>
+                                <span class="tag">Inclusive Design</span>
+                                <span class="tag">UX</span>
+                                <span class="tag">Semantic HTML</span>
+                            </div>
+                        </article>
+                        <article class="blog-post">
+                            <h2>Mastering React Performance Optimization</h2>
+                            <p class="post-date">November 10, 2023</p>
+                            <p>React applications can become slow and unresponsive if not properly optimized. Understanding how React works under the hood and implementing performance best practices is crucial for building fast, scalable applications.</p>
+                            <p>One of the most important concepts is the reconciliation process. React uses a virtual DOM to minimize expensive DOM manipulations, but understanding when and how components re-render can significantly impact performance.</p>
+                            <p>Memoization techniques like React.memo, useMemo, and useCallback help prevent unnecessary re-renders. Code splitting with React.lazy and Suspense allows for smaller initial bundle sizes and faster loading times.</p>
+                            <p>The new React 18 features like automatic batching and concurrent features provide even more performance benefits. Understanding the difference between transitions and urgent updates helps create smoother user experiences.</p>
+                            <p>Profiling tools like React DevTools Profiler and browser performance tools are essential for identifying bottlenecks and measuring the impact of optimizations.</p>
+                            <div class="blog-tags">
+                                <span class="tag">React</span>
+                                <span class="tag">Performance</span>
+                                <span class="tag">Optimization</span>
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">Frontend</span>
+                            </div>
+                        </article>
+                        <article class="blog-post">
+                            <h2>The Future of CSS: What's Coming Next</h2>
+                            <p class="post-date">October 5, 2023</p>
+                            <p>CSS continues to evolve rapidly, bringing powerful new features that make it easier to create sophisticated layouts and interactions without relying on JavaScript or external libraries.</p>
+                            <p>Container queries are one of the most anticipated features, allowing styles to adapt based on the size of a component's container rather than just the viewport. This enables truly modular, reusable components.</p>
+                            <p>Cascade layers provide better control over CSS specificity and organization, making it easier to manage complex stylesheets and avoid specificity wars.</p>
+                            <p>The :has() pseudo-class brings parent selector functionality to CSS, enabling styles based on a parent's children or siblings. This opens up new possibilities for complex component styling.</p>
+                            <p>Advanced animation features like scroll-driven animations and view transitions are making their way into browsers, enabling smoother, more engaging user interfaces.</p>
+                            <p>With these new features, CSS is becoming more powerful than ever, allowing developers to create complex layouts and interactions with cleaner, more maintainable code.</p>
+                            <div class="blog-tags">
+                                <span class="tag">CSS</span>
+                                <span class="tag">Web Standards</span>
+                                <span class="tag">Frontend</span>
+                                <span class="tag">Design</span>
+                                <span class="tag">Animation</span>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Gallery Section -->
+                <div id="gallery" class="section hidden">
+                    <h1>My Work Gallery</h1>
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop&crop=center" alt="Web Development Project" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>Modern Web App</h3>
+                                <p>Responsive design with cutting-edge technologies</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=250&fit=crop&crop=center" alt="Mobile App Interface" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>Mobile Interface</h3>
+                                <p>Intuitive user experience design</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop&crop=center" alt="Data Visualization" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>Data Dashboard</h3>
+                                <p>Interactive data visualization and analytics</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=250&fit=crop&crop=center" alt="E-commerce Platform" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>E-commerce Solution</h3>
+                                <p>Full-stack e-commerce platform</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop&crop=center" alt="API Integration" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>API Integration</h3>
+                                <p>Seamless third-party service integration</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop&crop=center" alt="Portfolio Website" loading="lazy">
+                            <div class="gallery-overlay">
+                                <h3>Portfolio Showcase</h3>
+                                <p>Creative portfolio and personal branding</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Section -->
+                <div id="contact" class="section hidden">
+                    <h1>Get In Touch</h1>
+                    <div class="contact-form">
+                        <form>
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+                    <div class="contact-info">
+                        <p>Email: your.email@example.com</p>
+                        <p>LinkedIn: /in/yourprofile</p>
+                        <p>GitHub: /yourusername</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <button id="start-button">Start</button>
+        <div class="taskbar-items"></div>
+        <div class="taskbar-right">
+            <button id="dark-mode-toggle">🌙</button>
+            <div id="time-display">00:00</div>
+        </div>
+    </div>
+
+    <!-- Start Menu (Hidden by default) -->
+    <div id="start-menu" class="start-menu hidden">
+        <div class="start-menu-content">
+            <div class="start-menu-apps">
+                <div class="start-menu-item" data-section="about">
+                    About
+                </div>
+                <div class="start-menu-item" data-section="projects">
+                    Projects
+                </div>
+                <div class="start-menu-item" data-section="resume">
+                    Resume
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="portfolio.js"></script>
+</body>
+</html>

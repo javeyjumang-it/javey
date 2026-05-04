@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brgy. Nabilog Portal</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="container">
+        <h1 class="logo">
+            <a href="#home"><span class="brgy">Brgy.</span>NABILOG</a>
+        </h1>
+
+        <nav class="navigation-container">
+            <div class="nav-content">
+                <ul class="navs">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#service">Service</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="settings">
+                <a href="settings.html">
+                    <span class="material-icons">settings</span>
+                </a>
+            </div>
+
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HOME -->
+    <section id="home" class="home">
+        <div class="home-container">
+            <h2>Portal</h2>
+            <p class="des">
+                Usa ka malinawon, nagkahiusang komunidad nga nagtinabangay aron makab-ot ang malungtarong kalamboan ug maayong kaugmaon sa tanan.
+                Nabilog: Puy-anan sa panaghiusa, paningkamot, ug paglaum alang sa mas maayong ugma.
+            </p>
+
+            <button onclick="location.href='#contact'">Contact</button>
+        </div>
+
+        <div class="hero-image">
+            <img src="images/image.png" alt="Barangay Hall">
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <h2><span>Brgy.</span>Nabilog</h2>
+            <p>
+                Barangay Nabilog is a vibrant and growing community known for its strong sense of unity,
+                cooperation, and resilience among its residents. Guided by dedicated local leaders, the barangay
+                continues to work toward sustainable development while preserving its cultural identity and values.
+            </p>
+        </div>
+
+        <div class="boxes">
+            <div class="box1">
+                <h3>Population</h3>
+                <p>3400+</p>
+            </div>
+
+            <div class="box2">
+                <h3>Houses</h3>
+                <p>1000+</p>
+            </div>
+        </div>
+
+        <div class="images">
+            <img src="images/image.png" alt="Community 1">
+            <img src="images/image.png" alt="Community 2">
+            <img src="images/image.png" alt="Community 3">
+            <img src="images/image.png" alt="Community 4">
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="service" class="service">
+        <h2>Our Services</h2>
+
+        <div class="service-container">
+            <div class="service-card">
+                <span class="material-icons">description</span>
+                <h3>Barangay Clearance</h3>
+                <p>Apply and process barangay clearance quickly and efficiently.</p>
+            </div>
+
+            <div class="service-card">
+                <span class="material-icons">health_and_safety</span>
+                <h3>Health Services</h3>
+                <p>Access community health programs and medical assistance.</p>
+            </div>
+
+            <div class="service-card">
+                <span class="material-icons">groups</span>
+                <h3>Community Programs</h3>
+                <p>Participate in events and development programs.</p>
+            </div>
+
+            <div class="service-card">
+                <span class="material-icons">gavel</span>
+                <h3>Dispute Resolution</h3>
+                <p>Peaceful mediation for barangay conflicts.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+
+        <div class="contact-container">
+            <form>
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+
+            <div class="contact-info">
+                <h3>Barangay Information</h3>
+                <p>📍 Brgy. Nabilog</p>
+                <p>📞 0912-345-6789</p>
+                <p>📧 nabilog@email.com</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="settings">
+        <!-- 1. Profile / Account -->
+        <div class="settings-card">
+            <h3><span class="material-icons">person</span> Profile / Account</h3>
+            <ul>
+                <li>Update personal information (name, address, contact number)</li>
+                <li>Change password</li>
+            </ul>
+        </div>
+
+        <!-- 2. Notifications -->
+        <div class="settings-card">
+            <h3><span class="material-icons">notifications</span> Notifications</h3>
+            <ul>
+                <li>Barangay announcements</li>
+                <li>Emergency alerts</li>
+            </ul>
+        </div>
+
+        <!-- 3. Privacy & Security -->
+        <div class="settings-card">
+            <h3><span class="material-icons">security</span> Privacy & Security</h3>
+            <ul>
+                <li>Account protection settings</li>
+                <li>Login security</li>
+            </ul>
+        </div>
+
+        <!-- 4. Language -->
+        <div class="settings-card">
+            <h3><span class="material-icons">language</span> Language</h3>
+            <ul>
+               <li>Choose preferred language (English / Cebuano)</li>
+            </ul>
+        </div>
+
+        <!-- 5. Help & Support -->
+        <div class="settings-card">
+            <h3><span class="material-icons">help</span> Help & Support</h3>
+            <ul>
+               <li>Contact barangay office</li>
+               <li>Send feedback or report issues</li>
+           </ul>
+        </div>
+
+        <!-- 6. Logout -->
+        <div class="settings-card logout">
+            <h3><span class="material-icons">logout</span> Logout</h3>
+            <button onclick="location.href='index.html'">Sign out of account</button>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="foot-container">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#secvice">Service</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <p>&copy; 2026 Barangay Nabilog. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

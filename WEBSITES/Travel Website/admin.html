@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelVista - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-plane-departure"></i> TravelVista Admin</h2>
+                <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Customer View</a>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Overview</span>
+                </li>
+                <li class="nav-item" data-page="bookings">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                </li>
+                <li class="nav-item" data-page="tours">
+                    <i class="fas fa-route"></i>
+                    <span>Tours</span>
+                </li>
+                <li class="nav-item" data-page="customers">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </li>
+                <li class="nav-item" data-page="analytics">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analytics</span>
+                </li>
+                <li class="nav-item" data-page="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/40?text=TV" alt="Admin">
+                    <span>Travel Admin</span>
+                </div>
+                <button class="toggle-btn" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>Travel Management</span>
+                </div>
+                <div class="header-right">
+                    <i class="fas fa-search"></i>
+                    <select>
+                        <option>EN</option>
+                    </select>
+                </div>
+            </header>
+
+            <!-- Dashboard/Overview -->
+            <div class="page active" id="dashboard">
+                <div class="page-header">
+                    <h1>Overview</h1>
+                    <p>Welcome back to TravelVista Admin!</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <div>
+                            <h3 id="totalBookings">24</h3>
+                            <span>Bookings</span>
+                            <button class="copy-btn" data-copy="totalBookings" title="Copy"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div>
+                            <h3 id="revenue">$18,450</h3>
+                            <span>Revenue</span>
+                            <button class="copy-btn" data-copy="revenue" title="Copy"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                            <div>
+                            <h3 id="customers">156</h3>
+                            <span>Customers</span>
+                            <button class="copy-btn" data-copy="customers" title="Copy"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-route"></i>
+                        <div>
+                            <h3 id="tours">8</h3>
+                            <span>Active Tours</span>
+                            <button class="copy-btn" data-copy="tours" title="Copy"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="recent-bookings">
+                        <h4>Recent Bookings</h4>
+                        <div id="recentBookingsList">
+                            <!-- JS populated -->
+                        </div>
+                    </div>
+                    <div class="quick-stats">
+                        <h4>Quick Stats</h4>
+                        <div class="stat-pills">
+                            <span>Conversion: 12.5%</span>
+                            <span>Avg Stay: 7.2 days</span>
+                            <span>Repeat: 28%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bookings Page -->
+            <div class="page" id="bookings">
+                <div class="page-header">
+                    <h1>Bookings</h1>
+                    <input type="text" id="bookingSearch" placeholder="Search bookings...">
+                    <button class="btn-primary" onclick="exportBookings()">Export CSV</button>
+                </div>
+                <div class="table-container">
+                    <table id="bookingsTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Tour</th>
+                                <th>Date</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- JS populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tours Page -->
+            <div class="page" id="tours">
+                <div class="page-header">
+                    <h1>Tours</h1>
+                    <button class="btn-primary" id="addTourBtn">Add Tour</button>
+                </div>
+                <div class="tours-grid" id="toursList">
+                    <!-- JS populated -->
+                </div>
+            </div>
+
+            <!-- Customers Page -->
+<div class="page" id="customers">
+                <div class="page-header">
+                    <h1>Customers</h1>
+                    <input type="text" id="customerSearch" placeholder="Search customers...">
+                    <button class="btn-primary" id="addCustomerBtn">Add Customer</button>
+                </div>
+                <div class="users-list" id="customersList">
+                    <!-- JS populated -->
+                </div>
+            </div>
+
+            <!-- Customer Modal -->
+            <div class="modal" id="customerModal">
+                <div class="modal-content">
+                    <h2 id="customerModalTitle">Add Customer</h2>
+                    <form id="customerForm">
+                        <input type="text" id="customerName" placeholder="Full Name" required>
+                        <input type="email" id="customerEmail" placeholder="Email" required>
+                        <input type="number" id="customerBookings" placeholder="Number of Bookings" min="0" value="0">
+                        <button type="submit">Save Customer</button>
+                        <button type="button" id="cancelCustomer">Cancel</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Analytics Page -->
+            <div class="page" id="analytics">
+                <div class="page-header">
+                    <h1>Analytics</h1>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h4>Bookings Trend</h4>
+                        <canvas id="bookingsChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h4>Tours Performance</h4>
+                        <canvas id="toursChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h4>Revenue by Tour</h4>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div class="page" id="settings">
+                <div class="page-header">
+                    <h1>Settings</h1>
+                </div>
+                <div class="settings-grid">
+                    <div class="setting-card">
+                        <h4>Logout</h4>
+                        <button class="btn-secondary" onclick="logout()">Logout</button>
+                    </div>
+                    <div class="setting-card">
+                        <h4>Clear Data</h4>
+                        <button class="btn-danger" onclick="clearDemoData()">Clear Demo Data</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Tour Modal -->
+    <div class="modal" id="tourModal">
+        <div class="modal-content">
+            <h2 id="tourModalTitle">Add Tour</h2>
+            <form id="tourForm">
+                <input type="text" id="tourName" placeholder="Tour Name" required>
+                <input type="number" id="tourPrice" placeholder="Price ($)" step="0.01" required>
+                <input type="number" id="tourDuration" placeholder="Duration (days)" required>
+                <input type="url" id="tourImage" placeholder="Image URL">
+                <textarea id="tourDesc" placeholder="Description"></textarea>
+                <button type="submit">Save Tour</button>
+                <button type="button" id="cancelTour">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>

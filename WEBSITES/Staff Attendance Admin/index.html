@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff & Attendance Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== LOGIN PAGE ===================== -->
+<section id="loginPage" class="page">
+    <div class="login-box glass">
+        <div class="login-logo">
+            <i class="fas fa-user-shield"></i>
+            <h2>Staff Admin</h2>
+        </div>
+        <p class="login-subtitle">Attendance & Staff Management System</p>
+        <input type="text" id="username" placeholder="Username" value="admin">
+        <input type="password" id="password" placeholder="Password" value="1234">
+        <button onclick="login()" class="btn-login">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <p id="loginError"></p>
+        <p class="login-hint">Default: admin / 1234</p>
+    </div>
+</section>
+
+<!-- ===================== APP SHELL ===================== -->
+<section id="appPage" class="hidden">
+    <div class="wrapper">
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-user-shield"></i>
+                    <span>StaffAdmin</span>
+                </div>
+                <button class="close-btn" id="closeSidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active" data-page="dashboard">
+                        <a href="#dashboard"><i class="fas fa-home"></i><span>Dashboard</span></a>
+                    </li>
+                    <li data-page="staff">
+                        <a href="#staff"><i class="fas fa-users"></i><span>Staff</span></a>
+                    </li>
+                    <li data-page="attendance">
+                        <a href="#attendance"><i class="fas fa-clock"></i><span>Attendance</span></a>
+                    </li>
+                    <li data-page="departments">
+                        <a href="#departments"><i class="fas fa-building"></i><span>Departments</span></a>
+                    </li>
+                    <li data-page="leave">
+                        <a href="#leave"><i class="fas fa-calendar-check"></i><span>Leave</span></a>
+                    </li>
+                    <li data-page="payroll">
+                        <a href="#payroll"><i class="fas fa-money-bill-wave"></i><span>Payroll</span></a>
+                    </li>
+                    <li data-page="reports">
+                        <a href="#reports"><i class="fas fa-chart-bar"></i><span>Reports</span></a>
+                    </li>
+                    <li data-page="settings">
+                        <a href="#settings"><i class="fas fa-cog"></i><span>Settings</span></a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button class="menu-btn" id="menuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search staff, departments..." id="globalSearch">
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="notifications">
+                        <button class="notif-btn" id="notifBtn">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge" id="notifBadge">0</span>
+                        </button>
+                        <div class="dropdown" id="notifDropdown">
+                            <div class="dropdown-header">
+                                <h4>Notifications</h4>
+                                <span class="mark-read" onclick="markAllRead()">Mark all as read</span>
+                            </div>
+                            <div class="dropdown-list" id="notifList">
+                                <p class="empty-notif">No notifications</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile">
+                        <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" alt="Profile">
+                        <div class="profile-info">
+                            <span class="name">Admin User</span>
+                            <span class="role">HR Manager</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ===================== DASHBOARD ===================== -->
+            <div class="content-section active" id="dashboard">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Overview of your staff and attendance today.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon primary"><i class="fas fa-users"></i></div>
+                        <div class="stat-info"><h3 id="dashTotalStaff">0</h3><p>Total Staff</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon success"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-info"><h3 id="dashPresent">0</h3><p>Present Today</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon warning"><i class="fas fa-clock"></i></div>
+                        <div class="stat-info"><h3 id="dashLate">0</h3><p>Late Today</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon info"><i class="fas fa-umbrella-beach"></i></div>
+                        <div class="stat-info"><h3 id="dashOnLeave">0</h3><p>On Leave</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon danger"><i class="fas fa-times-circle"></i></div>
+                        <div class="stat-info"><h3 id="dashAbsent">0</h3><p>Absent Today</p></div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card large">
+                        <div class="chart-header"><h3>Weekly Attendance Trend</h3></div>
+                        <div class="chart-container"><canvas id="attendanceTrendChart"></canvas></div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header"><h3>Staff by Department</h3></div>
+                        <div class="chart-container"><canvas id="deptDoughnutChart"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="bottom-grid">
+                    <div class="card">
+                        <div class="card-header"><h3>Today's Attendance</h3><button class="btn-outline" onclick="navigate('attendance')">View All</button></div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr><th>Staff</th><th>Clock In</th><th>Status</th><th>Hours</th></tr>
+                                </thead>
+                                <tbody id="dashAttendanceTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><h3>Recent Activity</h3></div>
+                        <div class="activity-list" id="dashActivityList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== STAFF ===================== -->
+            <div class="content-section" id="staff">
+                <div class="page-header">
+                    <h1>Staff Management</h1>
+                    <div class="page-actions">
+                        <input type="text" id="staffSearch" placeholder="Search staff..." class="search-input">
+                        <button class="btn-outline" onclick="exportStaffCSV()">📥 Export CSV</button>
+                        <button class="btn-primary" onclick="openStaffModal()"><i class="fas fa-plus"></i> Add Staff</button>
+                    </div>
+                </div>
+                <div class="filter-bar">
+                    <select id="staffDeptFilter"><option value="all">All Departments</option></select>
+                    <select id="staffStatusFilter">
+                        <option value="all">All Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="table-card">
+                    <div class="table-responsive">
+                        <table id="staffTable">
+                            <thead>
+                                <tr>
+                                    <th>Staff</th><th>ID</th><th>Department</th><th>Position</th><th>Status</th><th>Joined</th><th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staffTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== ATTENDANCE ===================== -->
+            <div class="content-section" id="attendance">
+                <div class="page-header">
+                    <h1>Attendance Tracker</h1>
+                    <div class="page-actions">
+                        <input type="date" id="attendanceDate" class="search-input">
+                        <button class="btn-primary" onclick="markAllPresent()"><i class="fas fa-check"></i> Mark All Present</button>
+                    </div>
+                </div>
+                <div class="stats-grid three-col">
+                    <div class="stat-card"><div class="stat-icon success"><i class="fas fa-check"></i></div><div class="stat-info"><h3 id="attPresent">0</h3><p>Present</p></div></div>
+                    <div class="stat-card"><div class="stat-icon warning"><i class="fas fa-clock"></i></div><div class="stat-info"><h3 id="attLate">0</h3><p>Late</p></div></div>
+                    <div class="stat-card"><div class="stat-icon danger"><i class="fas fa-times"></i></div><div class="stat-info"><h3 id="attAbsent">0</h3><p>Absent</p></div></div>
+                </div>
+                <div class="table-card">
+                    <div class="table-header"><h3>Daily Attendance</h3></div>
+                    <div class="table-responsive">
+                        <table id="attendanceTable">
+                            <thead>
+                                <tr><th>Staff</th><th>Department</th><th>Clock In</th><th>Clock Out</th><th>Status</th><th>Hours</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody id="attendanceTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="chart-card" style="margin-top:24px;">
+                    <div class="chart-header"><h3>Monthly Attendance Summary</h3></div>
+                    <div class="chart-container"><canvas id="monthlyAttChart"></canvas></div>
+                </div>
+            </div>
+
+            <!-- ===================== DEPARTMENTS ===================== -->
+            <div class="content-section" id="departments">
+                <div class="page-header">
+                    <h1>Departments</h1>
+                    <button class="btn-primary" onclick="openDeptModal()"><i class="fas fa-plus"></i> Add Department</button>
+                </div>
+                <div class="dept-grid" id="deptGrid"></div>
+            </div>
+
+            <!-- ===================== LEAVE ===================== -->
+            <div class="content-section" id="leave">
+                <div class="page-header">
+                    <h1>Leave Management</h1>
+                    <div class="page-actions">
+                        <select id="leaveStatusFilter" class="search-input">
+                            <option value="all">All Requests</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                        <button class="btn-primary" onclick="openLeaveModal()"><i class="fas fa-plus"></i> Apply Leave</button>
+                    </div>
+                </div>
+                <div class="stats-grid three-col">
+                    <div class="stat-card"><div class="stat-icon warning"><i class="fas fa-hourglass-half"></i></div><div class="stat-info"><h3 id="leavePending">0</h3><p>Pending</p></div></div>
+                    <div class="stat-card"><div class="stat-icon success"><i class="fas fa-check"></i></div><div class="stat-info"><h3 id="leaveApproved">0</h3><p>Approved</p></div></div>
+                    <div class="stat-card"><div class="stat-icon danger"><i class="fas fa-times"></i></div><div class="stat-info"><h3 id="leaveRejected">0</h3><p>Rejected</p></div></div>
+                </div>
+                <div class="table-card">
+                    <div class="table-header"><h3>Leave Requests</h3></div>
+                    <div class="table-responsive">
+                        <table id="leaveTable">
+                            <thead>
+                                <tr><th>Staff</th><th>Type</th><th>Dates</th><th>Reason</th><th>Status</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody id="leaveTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== PAYROLL ===================== -->
+            <div class="content-section" id="payroll">
+                <div class="page-header">
+                    <h1>Payroll</h1>
+                    <div class="page-actions">
+                        <select id="payrollMonth" class="search-input"></select>
+                        <button class="btn-outline" onclick="exportPayrollCSV()">📥 Export</button>
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="table-header"><h3>Salary Overview</h3></div>
+                    <div class="table-responsive">
+                        <table id="payrollTable">
+                            <thead>
+                                <tr><th>Staff</th><th>Base Salary</th><th>Bonus</th><th>Deductions</th><th>Net Pay</th><th>Status</th></tr>
+                            </thead>
+                            <tbody id="payrollTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== REPORTS ===================== -->
+            <div class="content-section" id="reports">
+                <div class="page-header">
+                    <h1>Reports</h1>
+                    <div class="page-actions">
+                        <input type="month" id="reportMonth" class="search-input">
+                        <button class="btn-outline" onclick="exportReportCSV()">📥 Export</button>
+                    </div>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-card large">
+                        <div class="chart-header"><h3>Monthly Attendance Overview</h3></div>
+                        <div class="chart-container"><canvas id="reportAttChart"></canvas></div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header"><h3>Department Comparison</h3></div>
+                        <div class="chart-container"><canvas id="reportDeptChart"></canvas></div>
+                    </div>
+                </div>
+                <div class="bottom-grid">
+                    <div class="card">
+                        <div class="card-header"><h3>Frequently Late</h3></div>
+                        <div class="table-responsive">
+                            <table><thead><tr><th>Staff</th><th>Department</th><th>Late Count</th></tr></thead>
+                            <tbody id="lateReportTable"></tbody></table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><h3>Absenteeism Report</h3></div>
+                        <div class="table-responsive">
+                            <table><thead><tr><th>Staff</th><th>Department</th><th>Absences</th></tr></thead>
+                            <tbody id="absentReportTable"></tbody></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== SETTINGS ===================== -->
+            <div class="content-section" id="settings">
+                <div class="page-header"><h1>Settings</h1><p>Manage your account and company preferences.</p></div>
+                <div class="settings-grid">
+                    <div class="card settings-card">
+                        <div class="card-header"><h3>Profile Settings</h3></div>
+                        <form class="settings-form" id="profileForm" onsubmit="saveProfile(event)">
+                            <div class="form-group"><label>Full Name</label><input type="text" id="setName" value="Admin User"></div>
+                            <div class="form-group"><label>Email</label><input type="email" id="setEmail" value="admin@company.com"></div>
+                            <div class="form-group"><label>Role</label><input type="text" value="HR Manager" disabled></div>
+                            <div class="form-group"><label>Bio</label><textarea id="setBio" rows="3">HR Manager overseeing staff and attendance.</textarea></div>
+                            <button type="submit" class="btn-primary">Save Profile</button>
+                        </form>
+                    </div>
+                    <div class="card settings-card">
+                        <div class="card-header"><h3>Preferences</h3></div>
+                        <form class="settings-form" id="prefsForm" onsubmit="savePrefs(event)">
+                            <div class="form-group toggle-group"><label>Email Notifications</label><label class="toggle-switch"><input type="checkbox" checked id="prefEmail"><span class="toggle-slider"></span></label></div>
+                            <div class="form-group toggle-group"><label>Push Notifications</label><label class="toggle-switch"><input type="checkbox" checked id="prefPush"><span class="toggle-slider"></span></label></div>
+                            <div class="form-group toggle-group"><label>Auto-save Data</label><label class="toggle-switch"><input type="checkbox" checked id="prefAuto"><span class="toggle-slider"></span></label></div>
+                            <button type="submit" class="btn-primary">Save Preferences</button>
+                        </form>
+                    </div>
+                    <div class="card settings-card wide">
+                        <div class="card-header"><h3>Company Settings</h3></div>
+                        <form class="settings-form" id="companyForm" onsubmit="saveCompany(event)">
+                            <div class="form-row">
+                                <div class="form-group"><label>Company Name</label><input type="text" id="setCompanyName" value="Acme Corporation"></div>
+                                <div class="form-group"><label>Working Hours Start</label><input type="time" id="setWorkStart" value="09:00"></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group"><label>Working Hours End</label><input type="time" id="setWorkEnd" value="17:00"></div>
+                                <div class="form-group"><label>Late Threshold (mins)</label><input type="number" id="setLateThreshold" value="15"></div>
+                            </div>
+                            <button type="submit" class="btn-primary">Save Company Settings</button>
+                        </form>
+                    </div>
+                    <div class="card settings-card wide">
+                        <div class="card-header"><h3>Security</h3></div>
+                        <form class="settings-form" id="securityForm" onsubmit="changePassword(event)">
+                            <div class="form-row">
+                                <div class="form-group"><label>Current Password</label><input type="password" id="currPass"></div>
+                                <div class="form-group"><label>New Password</label><input type="password" id="newPass"></div>
+                            </div>
+                            <button type="submit" class="btn-primary">Update Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</section>
+
+<!-- ===================== MODALS ===================== -->
+
+<!-- Staff Modal -->
+<div class="modal" id="staffModal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('staffModal')">&times;</span>
+        <h3 id="staffModalTitle">Add Staff</h3>
+        <form id="staffForm" onsubmit="saveStaff(event)">
+            <input type="hidden" id="staffEditId">
+            <div class="form-row">
+                <div class="form-group"><label>Full Name *</label><input type="text" id="stName" required></div>
+                <div class="form-group"><label>Employee ID *</label><input type="text" id="stEmpId" required></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Email *</label><input type="email" id="stEmail" required></div>
+                <div class="form-group"><label>Phone</label><input type="tel" id="stPhone"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Department *</label><select id="stDept" required></select></div>
+                <div class="form-group"><label>Position *</label><input type="text" id="stPosition" required></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Join Date</label><input type="date" id="stJoinDate"></div>
+                <div class="form-group"><label>Base Salary (₱)</label><input type="number" id="stSalary" step="0.01"></div>
+            </div>
+            <div class="form-group"><label>Status</label><select id="stStatus"><option value="Active">Active</option><option value="Inactive">Inactive</option></select></div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" onclick="closeModal('staffModal')">Cancel</button>
+                <button type="submit" class="btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Department Modal -->
+<div class="modal" id="deptModal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('deptModal')">&times;</span>
+        <h3 id="deptModalTitle">Add Department</h3>
+        <form id="deptForm" onsubmit="saveDept(event)">
+            <input type="hidden" id="deptEditId">
+            <div class="form-group"><label>Department Name *</label><input type="text" id="deptName" required></div>
+            <div class="form-group"><label>Head of Department</label><select id="deptHead"></select></div>
+            <div class="form-group"><label>Description</label><textarea id="deptDesc" rows="3"></textarea></div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" onclick="closeModal('deptModal')">Cancel</button>
+                <button type="submit" class="btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Leave Modal -->
+<div class="modal" id="leaveModal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('leaveModal')">&times;</span>
+        <h3>Apply for Leave</h3>
+        <form id="leaveForm" onsubmit="saveLeave(event)">
+            <div class="form-group"><label>Staff *</label><select id="lvStaff" required></select></div>
+            <div class="form-group"><label>Leave Type *</label><select id="lvType" required>
+                <option value="Sick">Sick Leave</option>
+                <option value="Casual">Casual Leave</option>
+                <option value="Emergency">Emergency Leave</option>
+                <option value="Vacation">Vacation</option>
+            </select></div>
+            <div class="form-row">
+                <div class="form-group"><label>Start Date *</label><input type="date" id="lvStart" required></div>
+                <div class="form-group"><label>End Date *</label><input type="date" id="lvEnd" required></div>
+            </div>
+            <div class="form-group"><label>Reason</label><textarea id="lvReason" rows="3"></textarea></div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" onclick="closeModal('leaveModal')">Cancel</button>
+                <button type="submit" class="btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Staff Detail Modal -->
+<div class="modal" id="staffDetailModal">
+    <div class="modal-content" style="max-width:600px;">
+        <span class="close-btn" onclick="closeModal('staffDetailModal')">&times;</span>
+        <div id="staffDetailContent"></div>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toastContainer" class="toast-container"></div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
